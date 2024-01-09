@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,8 +18,8 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
-
+} */
+/* 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,4 +28,28 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+
+body{
+  @apply bg-yellow-400
+}
+
+.swiper {
+  width: 300px;
+  height: 500px;
+  /* background-color: red; */
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: 18px; */
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  border:2px solid black;
+  box-shadow: 5px 30px 10px rgba(0, 0, 0, 0.2);
 }
