@@ -32,12 +32,14 @@ body {
 
 
 body{
-  @apply bg-yellow-400
+  /* @apply bg-yellow-400 */
+  background: linear-gradient(to right, #ffd700, #ffeb3b);
 }
 
 .swiper {
-  width: 300px;
-  height: 500px;
+  width: 100%;
+  height: 480px;
+  
   /* background-color: red; */
 }
 
@@ -52,4 +54,47 @@ body{
   background-color: white;
   border:2px solid black;
   box-shadow: 5px 30px 10px rgba(0, 0, 0, 0.2);
+   /* box-shadow: 5px 30px 100px rgba(255, 255, 255, 0.1); */
 }
+
+.createEventInput{
+  border-radius: 10px;
+  height: 3rem;
+  font-size: 1.1rem;
+  padding:10px;
+  border:1px solid #ccc;
+  box-shadow:0 0 5px rgba(0,0,0,0.1);
+  border-style: dashed;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.createEventInput:focus{
+  outline: none;
+  border-color: #ffcc00;
+   box-shadow: 0 0 12px rgba(255, 204, 0, 0.6);
+}
+
+.createEventInput::placeholder{
+  color: #999;
+}
+
+
+.createForm {
+  background: linear-gradient(to right, #ffd700, #ffeb3b);
+}
+
+.createEventLabel{
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+
+.eventFlyerImg{
+    /* display: block;
+    max-width:500px;
+    max-height:500px; */
+    width: auto;
+    height: auto;
+} 

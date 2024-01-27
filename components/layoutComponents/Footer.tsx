@@ -1,6 +1,7 @@
 import React from 'react'
 import {FaTwitter} from 'react-icons/fa'
 import {BsInstagram} from 'react-icons/bs'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -12,7 +13,7 @@ const Footer = () => {
                 <p>FAQ</p>
             </div>
             <div className='flex flex-col space-y-4'>
-                <p>Be a Honest</p>
+                <Link href={'/host-event'}>Host An Event</Link>
                 <p>Parties</p>
                 <p>Profile</p>
             </div>

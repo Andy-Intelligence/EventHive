@@ -7,11 +7,11 @@ export default function Page() {
   return (
     <main className="flex flex-col items-center justify-evenly w-full gap-4  p-10">
       <header className="text-center">
-        <h1 className="text-2xl font-bold text-center">Get Tickets</h1>
+        <h1 className="text-4xl font-extrabold text-center">Get Tickets</h1>
       </header>
       <section className="w-full h-full flex items-center flex-col">
         <article className="flex flex-col w-full items-center">
-          <h2 className="text-xl font-bold">
+          <h2 className="text-2xl font-extrabold my-4">
             The Jewelry Workshop (Bead Making)
           </h2>
           <div className="flex flex-col w-full items-start">
