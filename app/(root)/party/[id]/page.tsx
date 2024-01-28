@@ -8,7 +8,7 @@ const getEvent = async (id:any) => {
   
   try {
     const res = await fetch(
-      `https://event-hive-liart.vercel.app/event/${id.id}`,
+      `https://event-hive-liart.vercel.app/api/event/${id.id}`,
       {
         cache: "no-store",
       }
