@@ -8,7 +8,7 @@ const getEvent = async (id:any) => {
   
   try {
     const res = await fetch(
-      `https://event-hive-opal.vercel.app/api/event/${id.id}`,
+      `/api/event/${id.id}`,
       {
         cache: "no-store",
       }

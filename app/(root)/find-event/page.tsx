@@ -16,7 +16,7 @@ import Footer from "@/components/layoutComponents/Footer";
 
 const getEvents = async () => {
   try {
-    const res = await fetch("https://event-hive-opal.vercel.app/api/event", {
+    const res = await fetch("/api/event", {
       cache: "no-store",
     });
 

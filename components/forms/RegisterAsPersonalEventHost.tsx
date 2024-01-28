@@ -37,7 +37,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   // Handle form submission logic here
   try {
     const res = await fetch(
-      "https://event-hive-opal.vercel.app/api/host-event",
+      "/api/host-event",
       {
         method: "POST",
         body: JSON.stringify({ formData }),
