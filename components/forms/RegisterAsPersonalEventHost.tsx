@@ -36,11 +36,14 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   // Handle form submission logic here
   try {
-    const res = await fetch("http://localhost:3000/api/host-event", {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      "https://event-hive-opal.vercel.app/api/host-event",
+      {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     if (!res.ok) {
       console.log(res);
