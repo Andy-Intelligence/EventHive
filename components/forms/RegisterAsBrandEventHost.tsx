@@ -32,14 +32,11 @@ const RegisterAsBrandEventHost = () => {
     e.preventDefault();
     // Handle form submission logic here
     try {
-      const res = await fetch(
-        "/api/host-event",
-        {
-          method: "POST",
-          body: JSON.stringify({ formData }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch("http://localhost:3000/api/host-event", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!res.ok) {
         console.log(res);

@@ -7,12 +7,9 @@ import { useRouter } from "next/navigation";
 const getEvent = async (id:any) => {
   
   try {
-    const res = await fetch(
-      `/api/event/${id.id}`,
-      {
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`http://localhost:3000/api/event/${id.id}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("There was an Error fetching");
