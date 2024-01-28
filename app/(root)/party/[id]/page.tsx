@@ -7,9 +7,12 @@ import { useRouter } from "next/navigation";
 const getEvent = async (id:any) => {
   
   try {
-    const res = await fetch(`http://localhost:3000/api/event/${id.id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `https://event-hive-liart.vercel.app/event/${id.id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("There was an Error fetching");
