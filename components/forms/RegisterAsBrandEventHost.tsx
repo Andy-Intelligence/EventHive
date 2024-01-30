@@ -33,7 +33,7 @@ const RegisterAsBrandEventHost = () => {
     // Handle form submission logic here
     try {
       const res = await fetch(
-        "https://event-hive-liart.vercel.app/host-event",
+        "https://event-hive-liart.vercel.app/api/host-event",
         {
           method: "POST",
           body: JSON.stringify({ formData }),
