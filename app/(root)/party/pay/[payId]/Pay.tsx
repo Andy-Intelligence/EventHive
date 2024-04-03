@@ -37,7 +37,7 @@ async function sendEmailToServer({
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/sendMail`,
+      `https://event-hive-liart.vercel.app/api/sendMail`,
       {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ async function createEventTicketOrder({
 }: any) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order`,
+      `https://event-hive-liart.vercel.app/api/order`,
       {
         method: "POST",
         headers: {
@@ -112,7 +112,7 @@ async function createEventTicketOrder({
 const getEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event/${id}`,
+      `https://event-hive-liart.vercel.app/api/event/${id}`,
       {
         cache: "no-store",
       }

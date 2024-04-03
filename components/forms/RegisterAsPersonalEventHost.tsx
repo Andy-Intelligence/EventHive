@@ -44,7 +44,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   // Handle form submission logic here
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/personal-host-event`,
+      `https://event-hive-liart.vercel.app/api/personal-host-event`,
       {
         method: "POST",
         body: JSON.stringify({ formData }),

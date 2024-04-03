@@ -23,7 +23,7 @@ const getEventCategory = async (category: any) => {
   console.log(category);
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event-category/${category}`,
+      `https://event-hive-liart.vercel.app/api/event-category/${category}`,
       {
         cache: "no-store",
       }

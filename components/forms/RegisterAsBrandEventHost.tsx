@@ -43,7 +43,7 @@ const RegisterAsBrandEventHost = ({user}:UserDetails) => {
     // Handle form submission logic here
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/brand-host-event`,
+        `https://event-hive-liart.vercel.app/api/brand-host-event`,
         {
           method: "POST",
           body: JSON.stringify({ formData }),

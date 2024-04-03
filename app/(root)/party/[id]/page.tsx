@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const getEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event/${id.id}`,
+      `https://event-hive-liart.vercel.app/api/event/${id.id}`,
       {
         cache: "no-store",
       }
@@ -29,7 +29,7 @@ const getEvent = async (id: any) => {
 const fetchUsersAttendingEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event-attendance-count/${id}`,
+      `https://event-hive-liart.vercel.app/api/event-attendance-count/${id}`,
       {
         cache: "no-store",
       }

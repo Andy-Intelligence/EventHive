@@ -28,12 +28,9 @@ import SwiperEffect from "./SwiperEffect";
 
 const getEvents = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event`,
-      {
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`https://event-hive-liart.vercel.app/api/event`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("There was an Error fetching");
