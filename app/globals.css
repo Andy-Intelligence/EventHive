@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -30,71 +28,140 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-
-body{
-  /* @apply bg-yellow-400 */
-  background: linear-gradient(to right, #ffd700, #ffeb3b);
+body {
+  background: linear-gradient(to top, #7e57c2 20%, #673ab7 40%, #512da8 60%, #ff4081 80%, #f50057 100%);
 }
 
-.swiper {
+
+/* .swiper {
   width: 100%;
-  height: 480px;
-  
-  /* background-color: red; */
+  height: 100%;
+
 }
 
 .swiper-slide {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border-radius: 18px; */
+
   font-size: 22px;
   font-weight: bold;
   color: black;
   background-color: white;
-  border:2px solid black;
+  border: 2px solid black;
   box-shadow: 5px 30px 10px rgba(0, 0, 0, 0.2);
-   /* box-shadow: 5px 30px 100px rgba(255, 255, 255, 0.1); */
-}
 
-.createEventInput{
+} */
+
+.createEventInput {
   border-radius: 10px;
   height: 3rem;
   font-size: 1.1rem;
-  padding:10px;
-  border:1px solid #ccc;
-  box-shadow:0 0 5px rgba(0,0,0,0.1);
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   border-style: dashed;
   color: #333;
   margin-bottom: 1rem;
 }
 
-.createEventInput:focus{
+.createEventInput:focus {
   outline: none;
   border-color: #ffcc00;
-   box-shadow: 0 0 12px rgba(255, 204, 0, 0.6);
+  box-shadow: 0 0 12px rgba(255, 204, 0, 0.6);
 }
 
-.createEventInput::placeholder{
+.createEventInput::placeholder {
   color: #999;
 }
-
 
 .createForm {
   background: linear-gradient(to right, #ffd700, #ffeb3b);
 }
 
-.createEventLabel{
+.createEventLabel {
   font-family: sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
-
-.eventFlyerImg{
-    /* display: block;
+.eventFlyerImg {
+  /* display: block;
     max-width:500px;
     max-height:500px; */
-    width: auto;
-    height: auto;
-} 
+  width: auto;
+  height: auto;
+}
+
+.card {
+  box-shadow: 0px 18px 53px 0px rgba(0,0,0,0.3);
+}
+
+
+.swipeButtons {
+  /* position: relative; 
+  bottom: 0vh;  */
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.swipeButtons .MuiIconButton-root {
+  background-color: #fff;
+  box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, .3) !important;
+}
+
+.swipeButtons__repeat {
+  padding: 3vw !important;
+  color: #f5b748 !important;
+}
+
+.swipeButtons__left {
+  padding: 3vw !important;
+  color: #ec5e6f !important;
+}
+
+.swipeButtons__star {
+  padding: 3vw !important;
+  color: #62b4f9 !important;
+}
+
+.swipeButtons__right {
+  padding: 3vw !important;
+  color: #76e2b3 !important;
+}
+
+.swipeButtons__lightning {
+  padding: 3vw !important;
+  color: #915dd1 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.swiper {
+  width: 90%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  /* width: 300px; */
+  /* height: 300px; */
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}

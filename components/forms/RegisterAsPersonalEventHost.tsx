@@ -3,7 +3,12 @@ import React, { useState } from 'react'
 import Button from '../layoutComponents/Button';
 import { useRouter } from 'next/navigation';
 
-const RegisterAsPersonalEventHost = () => {
+interface UserDetails {
+  user: any;
+}
+
+
+const RegisterAsPersonalEventHost = ({user}:UserDetails) => {
 const router = useRouter();
 
 const personalHostDefaultData = {
@@ -12,11 +17,12 @@ const personalHostDefaultData = {
   email: "",
   mobileNumber: "",
   dateOfBirth: "",
-  accountNumber: 0,
+  accountNumber: "",
   bankName: "",
   accountName: "",
-  password: "", 
+  userId: user?._id,
 
+  // password: "",
 };
 
 const [formData, setFormData] = useState(personalHostDefaultData);
@@ -28,6 +34,7 @@ const handleChange = (
 
   setFormData((prev) => ({
     ...prev,
+    
     [name]: value,
   }));
 };
@@ -37,7 +44,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   // Handle form submission logic here
   try {
     const res = await fetch(
-      "https://event-hive-liart.vercel.app/api/host-event",
+      "http://localhost:3000/api/personal-host-event",
       {
         method: "POST",
         body: JSON.stringify({ formData }),
@@ -51,15 +58,14 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     }
 
     router.refresh();
-    router.push("/");
+    router.push("/find-event");
   } catch (error) {
     console.error(error);
   }
+
+
+  console.log(formData)
 };
-
-
-
-
 
 
 
@@ -73,7 +79,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       <form onSubmit={handleSubmit} className="flex flex-col w-full">
         <div className="w-full flex items-center justify-center">
           <h1 className="font-extrabold font-sans text-3xl mb-4">
-            Create Your Event
+            Register as EventHost
           </h1>
         </div>
 
@@ -123,15 +129,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           className="createEventInput"
           type="date"
           id="dobLabel"
-          name="dobLabel"
+          name="dateOfBirth"
           onChange={handleChange}
-          required={true}
+          required={false}
           value={formData.dateOfBirth}
         />
         <label className="createEventLabel">Account Number</label>
         <input
           className="createEventInput"
-          type="number"
+          type="text"
           id="accountNumber"
           name="accountNumber"
           onChange={handleChange}
@@ -147,10 +153,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           required={true}
           value={formData.bankName}
         >
-          <option value={"parties"}>parties</option>
-          <option value={"recreational"}>recreational</option>
+          <option value={"parties"}>Parties</option>
+          <option value={"recreational"}>Recreational</option>
           <option value={"artAndCulture"}>Arts and Culture</option>
-          <option value={"restaurantAndLounges"}>recreational</option>
+          <option value={"restaurantAndLounges"}>Restaurant And Lounges</option>
           <option value={"concerts"}>Concerts</option>
           <option value={"matchMaking"}>MatchMaking</option>
         </select>
@@ -164,7 +170,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           required={true}
           value={formData.accountName}
         />
-        <label className="createEventLabel">Password</label>
+        {/* <label className="createEventLabel">Password</label>
         <input
           className="createEventInput"
           type="text"
@@ -173,7 +179,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           onChange={handleChange}
           required={true}
           value={formData.password}
-        />
+        /> */}
 
         <div className="w-full flex items-center justify-center">
           <Button

@@ -12,6 +12,9 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+interface UserDetails {
+  user:any 
+}
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -26,7 +29,8 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {/* <Typography>{children}</Typography> */}
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -40,7 +44,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({user}:UserDetails) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -60,10 +64,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <RegisterAsPersonalEventHost/>
+        <RegisterAsPersonalEventHost user = {user} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <RegisterAsBrandEventHost/>
+        <RegisterAsBrandEventHost user = {user}/>
       </CustomTabPanel>
     </Box>
   );

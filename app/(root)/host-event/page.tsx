@@ -1,9 +1,18 @@
-"use client"
-import React from 'react'
+// "use client"
+// import React from 'react'
 import BeAnEventHost from '@/components/BeAnEventHost'
-const page = () => {
+import { getCurrentUser } from '@/utils/getUserDetails'
+const page = async () => {
+  const userDetails = await getCurrentUser()
+  const plainUserDetails = userDetails
+    ? JSON.parse(JSON.stringify(userDetails))
+    : null;
+  console.log("crazy",userDetails)
   return (
-    <div><BeAnEventHost/></div>
+
+
+
+    <div><BeAnEventHost user = {plainUserDetails}/></div>
   )
 }
 

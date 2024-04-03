@@ -3,16 +3,25 @@ import React, { useState } from "react";
 import Button from "../layoutComponents/Button";
 import { useRouter } from "next/navigation";
 
-const RegisterAsBrandEventHost = () => {
+
+interface UserDetails {
+  user: any;
+}
+
+
+
+const RegisterAsBrandEventHost = ({user}:UserDetails) => {
   const router = useRouter();
 
   const brandHostDefaultData = {
     businessName: "",
     companyEmail: "",
-    accountNumber: 0,
+    accountNumber: "",
     bankName: "",
     accountName: "",
-    password: "",
+    userId: user?._id,
+
+    // password: "",
   };
 
   const [formData, setFormData] = useState(brandHostDefaultData);
@@ -24,6 +33,7 @@ const RegisterAsBrandEventHost = () => {
 
     setFormData((prev) => ({
       ...prev,
+      
       [name]: value,
     }));
   };
@@ -32,14 +42,11 @@ const RegisterAsBrandEventHost = () => {
     e.preventDefault();
     // Handle form submission logic here
     try {
-      const res = await fetch(
-        "https://event-hive-liart.vercel.app/api/host-event",
-        {
-          method: "POST",
-          body: JSON.stringify({ formData }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch("http://localhost:3000/api/brand-host-event", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!res.ok) {
         console.log(res);
@@ -47,7 +54,7 @@ const RegisterAsBrandEventHost = () => {
       }
 
       router.refresh();
-      router.push("/");
+      router.push("/find-event");
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +65,7 @@ const RegisterAsBrandEventHost = () => {
       <form onSubmit={handleSubmit} className="flex flex-col w-full">
         <div className="w-full flex items-center justify-center">
           <h1 className="font-extrabold font-sans text-3xl mb-4">
-            Create Your Event
+            Register as EventHost
           </h1>
         </div>
 
@@ -87,7 +94,7 @@ const RegisterAsBrandEventHost = () => {
         <label className="createEventLabel">Account Number</label>
         <input
           className="createEventInput"
-          type="number"
+          type="text"
           id="accountNumber"
           name="accountNumber"
           onChange={handleChange}
@@ -103,10 +110,10 @@ const RegisterAsBrandEventHost = () => {
           required={true}
           value={formData.bankName}
         >
-          <option value={"parties"}>parties</option>
-          <option value={"recreational"}>recreational</option>
+          <option value={"parties"}>Parties</option>
+          <option value={"recreational"}>Recreational</option>
           <option value={"artAndCulture"}>Arts and Culture</option>
-          <option value={"restaurantAndLounges"}>recreational</option>
+          <option value={"restaurantAndLounges"}>Restaurant And Lounges</option>
           <option value={"concerts"}>Concerts</option>
           <option value={"matchMaking"}>MatchMaking</option>
         </select>
@@ -120,7 +127,7 @@ const RegisterAsBrandEventHost = () => {
           required={true}
           value={formData.accountName}
         />
-        <label className="createEventLabel">Password</label>
+        {/* <label className="createEventLabel">Password</label>
         <input
           className="createEventInput"
           type="text"
@@ -129,7 +136,7 @@ const RegisterAsBrandEventHost = () => {
           onChange={handleChange}
           required={true}
           value={formData.password}
-        />
+        /> */}
 
         <div className="w-full flex items-center justify-center">
           <Button

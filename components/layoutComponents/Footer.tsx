@@ -13,9 +13,9 @@ const Footer = () => {
                 <p>FAQ</p>
             </div>
             <div className='flex flex-col space-y-4'>
-                <Link href={'/host-event'}>Host An Event</Link>
+                <Link href={'/host-event'}>Host Event</Link>
                 <p>Parties</p>
-                <p>Profile</p>
+                <Link href={'/create-event'}>Create Event</Link>
             </div>
         </div>
         <div className='socials flex flex-row items-center justify-center space-x-20 w-full'>

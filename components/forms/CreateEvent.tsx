@@ -2,11 +2,18 @@
 import React, { useState } from "react";
 import Button from "../layoutComponents/Button";
 import { useRouter } from "next/navigation";
+import { CldUploadButton } from "next-cloudinary";
 
-const CreateEvent = () => {
+interface UserProp {
+  user:any
+}
+const CreateEvent = ({user}:UserProp) => {
+
   const router = useRouter();
+  const [flyerImage, setFlyerImage] = useState<any>();
   const eventDefaultData = {
     eventId: "",
+    eventHost:"",
     eventFlyer: "",
     eventTitle: "",
     eventDate: "",
@@ -31,6 +38,8 @@ const CreateEvent = () => {
     eventMaximumAttendanceNeeded: 0, // Assuming it's a numerical value
     eventEnquiryPhoneNumber: "", // Assuming it's a phone number
     eventLocationForinteractiveMap: "", // Assuming it's a location description or coordinates
+    eventLatitude: 0, // Assuming it's a location description or coordinates
+    eventLongitude: 0, // Assuming it's a location description or coordinates
     eventActivities: "", // Assuming it's a description of activities
     // eventComments: [], // Assuming it's an array of comments
     // eventReviews: [], // Assuming it's an array of reviews
@@ -38,13 +47,37 @@ const CreateEvent = () => {
 
   const [formData, setFormData] = useState(eventDefaultData);
 
+  const handleImageChange = (e: any) => {
+    const file = e.target.files[0]
+    setFileToBase(file);
+    console.log(file)
+  };
+
+const setFileToBase = (file:any)=>{
+  const reader = new FileReader();
+  reader.readAsDataURL(file)
+  reader.onloadend = ()=>{
+    setFlyerImage(reader.result)
+  }
+
+
+}
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { value, name } = e.target;
+    if (name === "eventCategory") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value.toLowerCase(),
+      }));
+    }
 
     setFormData((prev) => ({
       ...prev,
+      // eventFlyer:flyerImage,
       [name]: value,
     }));
   };
@@ -52,15 +85,18 @@ const CreateEvent = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission logic here
+    const updatedFormData = {
+      ...formData,
+      eventHost:user?._id,
+      eventFlyer: flyerImage, // Assign the base64 image to eventFlyer
+    };
+    console.log(updatedFormData)
     try {
-      const res = await fetch(
-        "https://event-hive-liart.vercel.app/api/event",
-        {
-          method: "POST",
-          body: JSON.stringify({ formData }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch("http://localhost:3000/api/event", {
+        method: "POST",
+        body: JSON.stringify( updatedFormData ),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!res.ok) {
         console.log(res);
@@ -78,8 +114,9 @@ const CreateEvent = () => {
     <div className="createForm font-sans flex items-center justify-center w-full p-5 ">
       <form onSubmit={handleSubmit} className="flex flex-col w-full">
         <div className="w-full flex items-center justify-center">
-        <h1 className="font-extrabold font-sans text-3xl mb-4">Create Your Event</h1>
-
+          <h1 className="font-extrabold font-sans text-3xl mb-4">
+            Create Your Event
+          </h1>
         </div>
 
         <label className="createEventLabel">Title</label>
@@ -94,14 +131,15 @@ const CreateEvent = () => {
           value={formData.eventTitle}
         />
         <label className="createEventLabel">Flyer</label>
+        {/* <CldUploadButton uploadPreset="eventhive" /> */}
         <input
           className="createEventInput"
-          type="text"
+          type="file"
           id="flyer"
           name="eventFlyer"
-          onChange={handleChange}
+          onChange={handleImageChange}
           required={true}
-          value={formData.eventFlyer}
+          // value={formData.eventFlyer}
         />
         <label className="createEventLabel">Date</label>
         <input
@@ -132,12 +170,12 @@ const CreateEvent = () => {
           required={true}
           value={formData.eventCategory}
         >
-          <option value={"parties"}>parties</option>
-          <option value={"recreational"}>recreational</option>
-          <option value={"artAndCulture"}>Arts and Culture</option>
-          <option value={"restaurantAndLounges"}>recreational</option>
+          <option value={"parties"}>Parties</option>
+          <option value={"recreational"}>Recreational</option>
+          <option value={"artsandCulture"}>Arts and Culture</option>
+          <option value={"restaurantandlounges"}>Restaurant And Lounges</option>
           <option value={"concerts"}>Concerts</option>
-          <option value={"matchMaking"}>MatchMaking</option>
+          <option value={"matchmaking"}>MatchMaking</option>
         </select>
         <label className="createEventLabel">Location</label>
         <input
@@ -330,6 +368,26 @@ const CreateEvent = () => {
           required={true}
           value={formData.eventLocationForinteractiveMap}
         />
+        <label className="createEventLabel">Event Latitude</label>
+        <input
+          className="createEventInput"
+          type="number"
+          id="latitude"
+          name="eventLatitude"
+          onChange={handleChange}
+          required={false}
+          value={formData?.eventLatitude}
+        />
+        <label className="createEventLabel">Event Longitude</label>
+        <input
+          className="createEventInput"
+          type="number"
+          id="longitude"
+          name="eventLongitude"
+          onChange={handleChange}
+          required={false}
+          value={formData?.eventLongitude}
+        />
         <label className="createEventLabel">Location</label>
         <input
           className="createEventInput"
@@ -352,7 +410,11 @@ const CreateEvent = () => {
         />
 
         <div className="w-full flex items-center justify-center">
-          <Button color="black my-5" text="Create" onSubmit={(e)=>handleSubmit} />
+          <Button
+            color="black my-5"
+            text="Create"
+            onSubmit={(e) => handleSubmit}
+          />
         </div>
       </form>
     </div>
