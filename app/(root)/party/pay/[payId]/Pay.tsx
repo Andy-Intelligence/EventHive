@@ -36,33 +36,36 @@ async function sendEmailToServer({
   // console.log("mm", userDetails);
 
   try {
-    const response = await fetch("/api/sendMail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        formData: {
-          to: to,
-          name: name,
-          subject: subject,
-          body: body,
-          eventFlyer,
-          confirmationNumber,
-          date,
-          timeStart,
-          timeEnd,
-          noOfTickets,
-          mobileNumber,
-          ticketType,
-          location,
-          price,
-          orderDate,
-          userId,
-          orderId,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/sendMail`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    });
+        body: JSON.stringify({
+          formData: {
+            to: to,
+            name: name,
+            subject: subject,
+            body: body,
+            eventFlyer,
+            confirmationNumber,
+            date,
+            timeStart,
+            timeEnd,
+            noOfTickets,
+            mobileNumber,
+            ticketType,
+            location,
+            price,
+            orderDate,
+            userId,
+            orderId,
+          },
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to send email");
@@ -82,15 +85,18 @@ async function createEventTicketOrder({
   totalPrice,
 }: any) {
   try {
-    const response = await fetch("/api/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        formData: { eventId, userId, numTickets, totalPrice },
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formData: { eventId, userId, numTickets, totalPrice },
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to create and save order");
@@ -105,9 +111,12 @@ async function createEventTicketOrder({
 
 const getEvent = async (id: any) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/event/${id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("There was an Error fetching");

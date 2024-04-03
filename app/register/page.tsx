@@ -35,11 +35,14 @@ const Register = () => {
     e.preventDefault();
     // Handle form submission logic here
     try {
-      const res = await fetch("http://localhost:3000/api/register-user", {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/register-user`,
+        {
+          method: "POST",
+          body: JSON.stringify({ formData }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!res.ok) {
         console.log(res);

@@ -10,9 +10,12 @@ import { useEffect, useState } from "react";
 
 const getEvent = async (id: any) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/event/${id.id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event/${id.id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("There was an Error fetching");
@@ -26,7 +29,7 @@ const getEvent = async (id: any) => {
 const fetchUsersAttendingEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/event-attendance-count/${id}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event-attendance-count/${id}`,
       {
         cache: "no-store",
       }

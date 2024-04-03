@@ -41,7 +41,7 @@ export default function AccordionUsage({ userDetails }: any) {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/update-userDetails/${userDetails?._id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/update-userDetails/${userDetails?._id}`,
         {
           method: "PUT",
           body: JSON.stringify({ formData }),
