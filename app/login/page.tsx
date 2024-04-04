@@ -15,7 +15,7 @@ const Login = () => {
   useEffect(() => {
     if (session?.status === "authenticated") {
       // router.replace("/find-event");
-      console.log(session.status)
+      console.log(session.status);
     }
   }, []);
   const router = useRouter();
@@ -49,14 +49,14 @@ const Login = () => {
       //   });
       const email = formData?.email;
       const password = formData?.password;
-      console.log(email,password)
+      console.log(email, password);
 
       if (!isValidEmail(email)) {
         setError("Email is invalid");
         return;
       }
-    //   || isStrongPassword(password)
-      if (!password || password.length < 0 ) {
+      //   || isStrongPassword(password)
+      if (!password || password.length < 0) {
         setError("Password is invalid");
         const display = () => {
           return (
@@ -92,52 +92,47 @@ const Login = () => {
   };
 
   return (
-    <div className="createForm font-sans flex flex-col items-center justify-center w-full p-5 ">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
-        <div className="w-full flex items-center justify-center">
-          <h1 className="font-extrabold font-sans text-3xl mb-4">Login</h1>
-        </div>
-        <div
-          className="bg-white rounded-md p-2 font-bold"
-          onClick={handleGoogleSignIn}
-        >
-          Sign In with Google
-        </div>
-        <p>{error && error}</p>
-
-        <label className="createEventLabel">Email</label>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-extrabold mb-6">Login</h1>
+      <Button
+        color="bg-white text-black"
+        text="Sign In with Google"
+        onClick={() => handleGoogleSignIn()}
+      />
+      {/* <p className="text-red-500">{error}</p>
+      <form onSubmit={handleSubmit} className="flex flex-col w-full mt-6">
+        <label className="text-gray-600 mb-1">Email</label>
         <input
-          className="createEventInput"
           type="email"
-          id="email"
           name="email"
-          onChange={handleChange}
-          required={true}
           value={formData.email}
-        />
-
-        <label className="createEventLabel">Password</label>
-        <input
-          className="createEventInput"
-          type="password"
-          id="password"
-          name="password"
           onChange={handleChange}
-          required={true}
-          value={formData.password}
+          className="w-full px-4 py-2 mb-4 border rounded-md"
+          required
         />
-
-        <div className="w-full flex items-center justify-center">
-          <Button
-            color="black my-5"
-            text="Login"
-            onSubmit={(e) => handleSubmit}
-          />
-        </div>
+        <label className="text-gray-600 mb-1">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full px-4 py-2 mb-4 border rounded-md"
+          required
+        />
+        <Button
+          type="submit"
+          color="bg-black text-white"
+          text="Login"
+          className="w-full"
+        />
       </form>
-      <div className="block text-center text-blue-500 hover:underline mt-2">
-        Make sure to be part of an event today!
-      </div>
+      <p className="text-gray-600 mt-4">
+        Not registered yet?{" "}
+        <Link href="/register">
+          Sign up here
+        </Link>
+        .
+      </p> */}
     </div>
   );
 };
