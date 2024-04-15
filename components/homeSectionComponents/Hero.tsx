@@ -24,7 +24,7 @@ const Hero = () => {
             color={"pink text-white"}
             
             onClick={() => {
-              router.push("/find-event");
+              router.push("/personal-interest");
             }}
           />
         </div>
