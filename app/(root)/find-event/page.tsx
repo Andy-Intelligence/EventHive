@@ -23,6 +23,7 @@ import { EventCardSwiper } from "@/components/layoutComponents/EventCardSwiper";
 
 import { getCurrentUser } from "@/utils/getUserDetails";
 import SwiperEffect from "./SwiperEffect";
+import SearchBar from "@/components/layoutComponents/SearchBar";
 
 
 
@@ -115,6 +116,7 @@ const userDetails = await getCurrentUser()
               )}
             </div>
           </nav>
+                    <SearchBar/>
 
           <div className="event-filters">
             <section>
