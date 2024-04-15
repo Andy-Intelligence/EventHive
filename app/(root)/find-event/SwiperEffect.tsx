@@ -125,7 +125,7 @@ const router = useRouter()
         }}
         // pagination={true}
         modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
+        className="mySwiper max-h-[50vh]"
       >
         {/* <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
