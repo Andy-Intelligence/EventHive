@@ -76,7 +76,7 @@ body {
 }
 
 .createForm {
-  background: linear-gradient(to right, #ffd700, #ffeb3b);
+  /* background: linear-gradient(to right, #ffffff, #ffffff); */
 }
 
 .createEventLabel {
@@ -165,3 +165,4 @@ body {
   display: block;
   width: 100%;
 }
+

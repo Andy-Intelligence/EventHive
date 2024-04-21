@@ -117,6 +117,7 @@ const userDetails = await getCurrentUser()
             </div>
           </nav>
                     <SearchBar/>
+                    
 
           <div className="event-filters">
             <section>
