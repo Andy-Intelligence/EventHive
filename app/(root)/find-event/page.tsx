@@ -24,6 +24,7 @@ import { EventCardSwiper } from "@/components/layoutComponents/EventCardSwiper";
 import { getCurrentUser } from "@/utils/getUserDetails";
 import SwiperEffect from "./SwiperEffect";
 import SearchBar from "@/components/layoutComponents/SearchBar";
+import UserPosition from "@/components/layoutComponents/UserPosition";
 
 
 
@@ -97,7 +98,20 @@ const userDetails = await getCurrentUser()
               )}
             </div>
           </nav>
+          <div className="w-full flex flex-col items-center justify-center p-1">
+<div className="text-gray-800 text-lg">
+
+                    Current Location 
+</div>
+<div>
+
+                    <UserPosition/>
+</div>
+          </div>
+          <div>
+              
                     <SearchBar/>
+          </div>
                     
 
           <div className="event-filters">
