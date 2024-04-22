@@ -27,13 +27,13 @@ const UserPosition = () => {
 
   return (
     <div className="w-full font-sans">
-      {userLocation && (
+      {userLocation ? (
         <div className="flex items-center justify-center font-bold gap-2 text-lg text-black">
           <IoLocationSharp size={23} />
           <div>Latitude: {userLocation.latitude}</div>
           <div>Longitude: {userLocation.longitude}</div>
         </div>
-      )}
+      ):(<div>Turn On device Location, to view Location...</div>)}
     </div>
   );
 };
