@@ -65,7 +65,7 @@ const SearchBar: React.FC = () => {
             value={searchQuery}
             onChange={handleSearchChange}
             required 
-            className='digitalID-input peer block w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-12 text-lg shadow-lg font-sans font-medium focus:border-black focus:outline-none focus:ring-0  pl-10 h-full  '
+            className='digitalID-input peer block w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-24 text-lg shadow-lg font-sans font-medium focus:border-black focus:outline-none focus:ring-0  pl-10 h-full  '
             />
 
             <button 
@@ -74,11 +74,13 @@ const SearchBar: React.FC = () => {
             className='submit-btn hover:border-gray-700 hover:text-gray-700 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-sm font-medium text-gray-400 peer-focus:border-gray-700 peer-focus:text-gray-700'>
                 <AiOutlineSearch size={32}/>
             </button>
-        </form> 
-  
-      <button className="border border-black text-black px-2  rounded-md h-full" onClick={handleFilter}>
+
+            <button className="submit-btn hover:border-gray-700 hover:text-gray-700 absolute inset-y-0 right-0 my-1.5 mr-12 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-sm font-medium text-gray-400 peer-focus:border-gray-700 peer-focus:text-gray-700" onClick={handleFilter}>
         <BsFilter size={32}/>
       </button>
+        </form> 
+  
+      
     </div>
   );
 };
