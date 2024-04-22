@@ -43,25 +43,6 @@ const getEvents = async () => {
   }
 };
 
-// const getUserDetails = async () => {
-//   try {
-//     const res = await fetch("http://localhost:3000/api/getuser-details", {
-//       cache: "no-store",
-//     });
-
-//     if (!res.ok) {
-//       throw new Error("There was an Error getting User details");
-//     }
-
-//     return res.json()
-//   } catch (error) {
-//     console.error('Error getting user details',error)
-//   }
-// };
-
-
-
-
 
 
 

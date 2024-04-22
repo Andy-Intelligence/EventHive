@@ -37,7 +37,8 @@ const SearchBar: React.FC = () => {
   
       // router.refresh();
       // router.push("/find-event");
-      console.log(res)
+      const searchData = await res.json();
+    console.log("Search Result:", searchData);
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +76,7 @@ const SearchBar: React.FC = () => {
             </button>
         </form> 
   
-      <button className="border border-black text-black px-4 py-2 rounded-md h-full" onClick={handleFilter}>
+      <button className="border border-black text-black px-2  rounded-md h-full" onClick={handleFilter}>
         <BsFilter size={32}/>
       </button>
     </div>
