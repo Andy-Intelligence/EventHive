@@ -172,7 +172,7 @@ const router = useRouter()
           modifier: 1,
           slideShadows: true,
         }}
-        // pagination={true}
+        pagination={true}
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper min-h-[50vh]"
       >
@@ -184,14 +184,14 @@ const router = useRouter()
               className="bg-white p-2 rounded-lg"
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
-                <div className="relative flex flex-col items-center h-fit justify-center">
+                <div className="relative flex flex-col items-center h-fit  overflow-clip justify-center">
                   <CldImage
                     key={event?._id}
                     src={event?.eventFlyer?.secure_url}
                     alt="event-image"
                     height={960}
                     width={600}
-                    className="cover rounded-lg"
+                    className="cover rounded-lg max-h-[30vh]"
                   />
                   <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-lg font-bold text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
                 </div>
