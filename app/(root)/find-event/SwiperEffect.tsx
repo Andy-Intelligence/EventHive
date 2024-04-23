@@ -181,7 +181,7 @@ const router = useRouter()
           <SwiperSlide key={event?._id + index}>
             <main
               onClick={(e) => gotoEventProfile(e, event?._id)}
-              className=""
+              className="bg-white p-2 rounded-lg"
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
                 <div className="relative flex flex-col items-center h-fit justify-center">
@@ -191,7 +191,7 @@ const router = useRouter()
                     alt="event-image"
                     height={960}
                     width={600}
-                    className="cover"
+                    className="cover rounded-lg"
                   />
                   <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-lg font-bold text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
                 </div>
