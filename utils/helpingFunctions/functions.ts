@@ -222,3 +222,17 @@ export function formatAmount(amount:any) {
   return formatter.format(amount);
 }
 
+
+export function convertToMonth(dateString: string): string {
+  const dateObj: Date = new Date(dateString);
+  const monthAbbreviation: string = dateObj.toLocaleString('default', { month: 'short' });
+  return monthAbbreviation;
+}
+
+export function getDayFromDate(dateString: string): number {
+  const dateObj: Date = new Date(dateString);
+  const dayOfMonth: number = dateObj.getDate();
+  return dayOfMonth;
+}
+
+

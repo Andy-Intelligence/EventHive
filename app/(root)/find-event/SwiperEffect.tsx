@@ -18,9 +18,37 @@ import {
   watchUserLocation,
   clearWatch,
   calculateDistance,
+  convertToMonth,
+  getDayFromDate,
+  convertToTime,
 } from "@/utils/helpingFunctions/functions";
 
+import gsap from 'gsap';
 
+import { useGSAP } from '@gsap/react';
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(useGSAP);
+}
+
+//import { useGSAP } from "@gsap/react";
+    
+import { CustomEase } from "gsap/CustomEase";
+import { RoughEase, ExpoScaleEase, SlowMo } from "gsap/EasePack";
+    
+import { Flip } from "gsap/Flip";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Observer } from "gsap/Observer";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Draggable } from "gsap/Draggable";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { EaselPlugin } from "gsap/EaselPlugin";
+import { PixiPlugin } from "gsap/PixiPlugin";
+import { TextPlugin } from "gsap/TextPlugin";
+
+
+gsap.registerPlugin(Flip,ScrollTrigger,Observer,ScrollToPlugin,Draggable,MotionPathPlugin,EaselPlugin,PixiPlugin,TextPlugin,RoughEase,ExpoScaleEase,SlowMo,CustomEase);
+
+// gsap.registerPlugin(MotionPathPlugin, ScrollToPlugin, TextPlugin);
 
 interface Event {
   id: string;
@@ -40,6 +68,25 @@ const router = useRouter()
  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
  // const [filteredevents, setFilteredEvents] = useState<Event[]>([]);
  const [filteredEventsLocation, setFilteredEventsLocation] = useState<any>([]);
+
+
+//  useEffect(() => {
+//   const carousel = carouselRef.current;
+//   const slides = carousel?.querySelectorAll('.owl-carousel > div');
+//   if (!slides) return;
+
+
+  
+//   // gsap.set(slides, { xPercent: 100 }); // Initial position all slides
+
+
+
+  
+//   return () => {
+//     // Clean up GSAP animations if needed
+//   };
+// }, []);
+
 
  // useEffect(() => {
  //   const fetchUserLocation = async () => {
@@ -110,7 +157,9 @@ const router = useRouter()
 
 
   return (
+   
     <div className="relative">
+      
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -135,7 +184,7 @@ const router = useRouter()
               className=""
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
-                <div className="flex flex-col items-center h-fit justify-center">
+                <div className="relative flex flex-col items-center h-fit justify-center">
                   <CldImage
                     key={event?._id}
                     src={event?.eventFlyer?.secure_url}
@@ -144,6 +193,7 @@ const router = useRouter()
                     width={600}
                     className="cover"
                   />
+                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-lg font-bold text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
                 </div>
                 <div className="event-description flex flex-col items-center justify-center mb-2">
                   <h2 className="font-extrabold text-3xl">
@@ -151,7 +201,8 @@ const router = useRouter()
                   </h2>
                   <div className="details">
                     <span className="text-sm font-bold">
-                      sat, 21 oct@4:20PM
+                      {/* sat, 21 oct@4:20PM */}
+                      {convertToTime(event?.eventDate)}
                     </span>
                   </div>
                   <div></div>
@@ -161,6 +212,7 @@ const router = useRouter()
           </SwiperSlide>
         ))}
       </Swiper>
+   
     </div>
   );
 }
