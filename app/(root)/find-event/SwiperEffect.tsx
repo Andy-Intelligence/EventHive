@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect, useRef, useState } from "react";
+import * as React from 'react';
+import  { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -21,6 +22,8 @@ import {
   convertToMonth,
   getDayFromDate,
   convertToTime,
+  replaceHttpWithHttps,
+  formatAttendanceNumber,
 } from "@/utils/helpingFunctions/functions";
 
 import gsap from 'gsap';
@@ -46,6 +49,11 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import { TextPlugin } from "gsap/TextPlugin";
 
 
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import { IoLocationSharp } from 'react-icons/io5';
+
+
 gsap.registerPlugin(Flip,ScrollTrigger,Observer,ScrollToPlugin,Draggable,MotionPathPlugin,EaselPlugin,PixiPlugin,TextPlugin,RoughEase,ExpoScaleEase,SlowMo,CustomEase);
 
 // gsap.registerPlugin(MotionPathPlugin, ScrollToPlugin, TextPlugin);
@@ -64,42 +72,13 @@ interface EventProp {
 
 
 export default function SwiperEffect({events}:any) {
+  console.log(events)
 const router = useRouter()
  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
  // const [filteredevents, setFilteredEvents] = useState<Event[]>([]);
  const [filteredEventsLocation, setFilteredEventsLocation] = useState<any>([]);
 
 
-//  useEffect(() => {
-//   const carousel = carouselRef.current;
-//   const slides = carousel?.querySelectorAll('.owl-carousel > div');
-//   if (!slides) return;
-
-
-  
-//   // gsap.set(slides, { xPercent: 100 }); // Initial position all slides
-
-
-
-  
-//   return () => {
-//     // Clean up GSAP animations if needed
-//   };
-// }, []);
-
-
- // useEffect(() => {
- //   const fetchUserLocation = async () => {
- //     try {
- //       const location = await getUserLocation();
- //       setUserLocation(location);
- //     } catch (error) {
- //       console.error("Error getting user location:", error);
- //     }
- //   };
-
- //   fetchUserLocation();
- // }, []);
 
  useEffect(() => {
    const successCallback = (location: UserLocation) => {
@@ -172,7 +151,7 @@ const router = useRouter()
           modifier: 1,
           slideShadows: true,
         }}
-        pagination={true}
+        // pagination={true}
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper min-h-[50vh]"
       >
@@ -181,19 +160,22 @@ const router = useRouter()
           <SwiperSlide key={event?._id + index}>
             <main
               onClick={(e) => gotoEventProfile(e, event?._id)}
-              className="bg-white p-2 rounded-lg"
+              className="bg-white p-2 rounded-lg max-h-[60vh]"
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
-                <div className="relative flex flex-col items-center h-fit  overflow-clip justify-center">
+                <div className="relative flex flex-col items-center  overflow-clip justify-center">
                   <CldImage
                     key={event?._id}
                     src={event?.eventFlyer?.secure_url}
                     alt="event-image"
                     height={960}
-                    width={600}
-                    className="cover rounded-lg max-h-[30vh]"
+                    width={960}
+                    // preserveTransformations
+                    crop="fill"
+    // sizes="100vw 100vh"
+                    className="cover rounded-lg max-h-[40vh]"
                   />
-                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-lg font-bold text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
+                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-xl font-bold  text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
                 </div>
                 <div className="event-description flex flex-col items-center justify-center mb-2">
                   <h2 className="font-extrabold text-3xl">
@@ -205,8 +187,44 @@ const router = useRouter()
                       {convertToTime(event?.eventDate)}
                     </span>
                   </div>
-                  <div></div>
+                  <div className='w-full flex items-start'>
+      
+     <div className='flex items-center justify-center '>
+      
+              <div className='flex items-center justify-center '>
+  {event?.orders?.reverse().slice(0,3).map((user:any, index:number)=>{
+    return (
+      <img 
+        key={index}
+        className={`h-[30px] w-[30px] rounded-full ${index !== 0 ? '-ml-2' : ''}`} 
+        src={replaceHttpWithHttps(user?.userId?.image)} 
+        alt='pics'
+        style={{ zIndex: event.orders.length - index }} // Adjust the zIndex dynamically
+      />
+    )
+  })}
+</div>
+
+              <span className='ml-1 flex items-center justify-center text-[13px] text-black font-[400] break-all whitespace-normal'> {formatAttendanceNumber(event?.orders?.length)} Going</span>
+              </div>
+                  </div>
+
+
+                  <div className="flex items-center justify-start font-bold gap-1 text-sm w-full text-black py-2">
+          <div className='flex items-center justify-center'><IoLocationSharp size={15} /></div>
+          <div className='flex items-center justify-center'>{event.eventLocation}</div>
+         
+        </div>
                 </div>
+
+    
+
+   
+
+
+
+
+
               </div>
             </main>
           </SwiperSlide>

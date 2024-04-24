@@ -10,6 +10,7 @@ import Event from "@/(backend)/models/event";
 
 
 export async function POST(request: any) {
+  // console.log("uuuuuuuuuuuuuuueeeeeeeeeeeeeeeeeeee",event)
   try {
     const bodi = await request.json();
     let {
@@ -47,6 +48,11 @@ const order = await Order.create({ eventId, userId, numTickets, totalPrice });
   // Save the order to the database
  const savedOrder =  await order.save();
 
+ event.orders.push(new mongoose.Types.ObjectId(savedOrder._id));
+
+        // Save the updated event document
+        await event.save();
+
     return NextResponse.json(
       { order:savedOrder,
         message: "order saved successfully" },
@@ -60,3 +66,5 @@ const order = await Order.create({ eventId, userId, numTickets, totalPrice });
     );
   }
 }
+
+

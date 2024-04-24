@@ -34,7 +34,7 @@ export const options: NextAuthOptions = {
 
       async authorize(credentials, req: any) {
         const res = await fetch(
-          `https://event-hive-liart.vercel.app/api/login-user`,
+          `http://localhost:3000/api/login-user`,
           {
             method: "POST",
             body: JSON.stringify(credentials),
@@ -97,9 +97,10 @@ export const options: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       if (account?.provider === "google") {
         connectMongoDb();
+        console.log("a",account,"p",profile,"c",credentials)
         try {
           const existingUser = await User.findOne({ email: profile?.email });
-
+          const profileWithPicture = profile as { picture: string };
           if (!existingUser) {
             await User.updateOne(
               { email: profile?.email },
@@ -107,7 +108,7 @@ export const options: NextAuthOptions = {
                 $setOnInsert: {
                   username: profile?.name,
                   email: profile?.email,
-                  image: profile?.image,
+                  image: profileWithPicture.picture,
                   role: "user",
                 },
               },

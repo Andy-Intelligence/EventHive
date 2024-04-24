@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const eventSchema = new Schema(
   {
     eventId: { type: String, required: false },
-    eventHost: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    eventHost: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     eventFlyer: { 
       public_id:{
           type:String,
@@ -44,6 +44,9 @@ const eventSchema = new Schema(
     eventActivities: { type: String }, // Assuming it's a description of activities
     eventComments: { type: String }, // Assuming it's an array of comments
     eventReviews: { type: String }, // Assuming it's an array of reviews
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+    
+
   },
   { timestamps: true }
 );

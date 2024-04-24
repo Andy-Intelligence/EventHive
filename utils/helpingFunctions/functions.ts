@@ -236,3 +236,47 @@ export function getDayFromDate(dateString: string): number {
 }
 
 
+export function replaceHttpWithHttps(url:any) {
+  // Check if the string is undefined or null
+  if (!url) {
+    return url;
+  }
+
+  // Check if the string starts with "http://"
+  if (url.startsWith && url.startsWith('http://')) {
+    // Replace "http://" with "https://"
+    return url.replace(/^http:\/\//, 'https://');
+  }
+
+  // If the string already starts with "https://", return it as is
+  if (url.startsWith && url.startsWith('https://')) {
+    return url;
+  }
+
+  // If the string doesn't start with either, assume it's HTTPS
+  return 'https://' + url;
+}
+
+export function formatAttendanceNumber(value: number): string {
+  if (value >= 1000000) {
+      // Format number in millions
+      return `+ ${(value / 1000000).toFixed(1)}M+`;
+  } else if(value === 0 ){
+    return `${value}`
+  }
+  else if (value >= 1000) {
+      // Format number in thousands
+      return ` ${(value / 1000).toFixed(1)}K+`;
+  } else {
+      // No formatting needed
+      return `${value}`;
+  }
+}
+
+
+export function formatTrendingEventDate(dateString: string): string {
+  const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', options);
+}
+

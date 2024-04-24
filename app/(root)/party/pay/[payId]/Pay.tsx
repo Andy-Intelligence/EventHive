@@ -37,7 +37,7 @@ async function sendEmailToServer({
 
   try {
     const response = await fetch(
-      `https://event-hive-liart.vercel.app/api/sendMail`,
+      `http://localhost:3000/api/sendMail`,
       {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ async function createEventTicketOrder({
 }: any) {
   try {
     const response = await fetch(
-      `https://event-hive-liart.vercel.app/api/order`,
+      `http://localhost:3000/api/order`,
       {
         method: "POST",
         headers: {
@@ -112,7 +112,7 @@ async function createEventTicketOrder({
 const getEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `https://event-hive-liart.vercel.app/api/event/${id}`,
+      `http://localhost:3000/api/event/${id}`,
       {
         cache: "no-store",
       }
@@ -331,7 +331,7 @@ createEventTicketOrder({
             name="ticketType"
             onChange={handleChange}
           >
-            <option selected className=" h-[2.5rem] text-lg" value="entry">
+            <option  className=" h-[2.5rem] text-lg" value="entry">
               Entry
             </option>
             <option className=" h-[2.5rem] text-lg" value="couples">

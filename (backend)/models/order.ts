@@ -5,12 +5,12 @@ const { Schema } = mongoose;
 const orderSchema = new Schema(
   {
     eventId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
       required: true,
     },
     userId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },

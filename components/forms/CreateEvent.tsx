@@ -92,7 +92,7 @@ const setFileToBase = (file:any)=>{
     };
     console.log(updatedFormData)
     try {
-      const res = await fetch(`https://event-hive-liart.vercel.app/api/event`, {
+      const res = await fetch(`http://localhost:3000/api/event`, {
         method: "POST",
         body: JSON.stringify(updatedFormData),
         headers: { "Content-Type": "application/json" },
@@ -187,6 +187,7 @@ const setFileToBase = (file:any)=>{
           required={true}
           value={formData.eventLocation}
         />
+  
         <label className="createEventLabel">Description</label>
         <input
           className="createEventInput"
@@ -388,16 +389,7 @@ const setFileToBase = (file:any)=>{
           required={false}
           value={formData?.eventLongitude}
         />
-        <label className="createEventLabel">Location</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="location"
-          name="eventLocation"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventLocation}
-        />
+     
         <label className="createEventLabel">Activities</label>
         <input
           className="createEventInput"

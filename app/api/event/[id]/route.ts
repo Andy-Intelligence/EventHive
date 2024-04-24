@@ -22,6 +22,7 @@ export async function PUT(request:any,{params}:any){
 export async function GET(request:any,{params}:any){
     
     try{    
+        console.log("ddkkkkkkkkkkkkkkk",params)
     const {id} = params
     connectMongoDb()
     const event = await Event.findOne({_id:id})

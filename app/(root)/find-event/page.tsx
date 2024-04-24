@@ -25,12 +25,15 @@ import { getCurrentUser } from "@/utils/getUserDetails";
 import SwiperEffect from "./SwiperEffect";
 import SearchBar from "@/components/layoutComponents/SearchBar";
 import UserPosition from "@/components/layoutComponents/UserPosition";
+import TrendingEvent from "@/components/cards/TrendingEvent";
+import { formatTrendingEventDate } from "@/utils/helpingFunctions/functions";
+import OffbeatEvent from "@/components/cards/OffbeatEvent";
 
 
 
 const getEvents = async () => {
   try {
-    const res = await fetch(`https://event-hive-liart.vercel.app/api/event`, {
+    const res = await fetch(`http://localhost:3000/api/event`, {
       cache: "no-store",
     });
 
@@ -116,14 +119,27 @@ const userDetails = await getCurrentUser()
 
           <div className="event-filters">
             <section>
-              <div className="flex items-center justify-between p-4">
+              {/* <div className="flex items-center justify-between p-4">
                 <Link href={"/find-event"}>
                   <Button text={"Events"} color={"black"} />
                 </Link>
                 <Link href={"/deals"}>
                   <Button text={"Deals"} color={"yellow-400 text-black"} />
                 </Link>
-              </div>
+              </div> */}
+              <div className="flex items-center justify-between p-4">
+  <Link href={"/find-event"}>
+    <button className="px-4 py-2 mr-4 bg-black text-white rounded-lg focus:outline-none hover:bg-gray-800">
+      Events
+    </button>
+  </Link>
+  <Link href={"/deals"}>
+    <button className="px-4 py-2 bg-yellow-400 text-black rounded-lg focus:outline-none hover:bg-yellow-500">
+      Deals
+    </button>
+  </Link>
+</div>
+
             </section>
           </div>
           <div className="">
@@ -131,6 +147,48 @@ const userDetails = await getCurrentUser()
               {/* <Swiper events={events} /> */}
               <SwiperEffect events={events} />
             </section>
+
+            <section className="w-full flex flex-col items-center justify-center my-4 ">
+            <div className="flex w-full items-center justify-between p-4 font-bold text-white">
+              <p>Trending Events</p>
+              <Link href={"/show-all"}>show all</Link>
+            </div>
+            <div className="w-full flex flex-col items-center justify-center gap-2">
+  {events.reverse().slice(0,2).map((event:any, index:number) => (
+    <Link key={index + 1} href={`/party/${event?._id}`}>
+    <TrendingEvent
+      key={index}
+      img={event.eventFlyer.secure_url}
+      eventTitle={event.eventTitle}
+      eventDate={formatTrendingEventDate(event.eventDate)}
+      eventLocation={event.eventLocation}
+    />
+    </Link>
+  ))}
+</div>
+</section>
+
+            <section className="w-full flex flex-col items-center justify-center my-4 ">
+            <div className="flex w-full items-center justify-between p-4 font-bold text-white">
+              <p>Offbeat Events</p>
+              <Link href={"/show-all"}>show all</Link>
+            </div>
+            <div className="w-full flex flex-col items-center justify-center gap-2">
+  {events.reverse().slice(0,2).map((event:any, index:number) => (
+    <Link key={index + 1} href={`/party/${event?._id}`}>
+    <OffbeatEvent
+      key={index}
+      img={event.eventFlyer.secure_url}
+      eventTitle={event.eventTitle}
+      eventDate={formatTrendingEventDate(event.eventDate)}
+      eventLocation={event.eventLocation}
+      eventDescription={event.eventDescription}
+    />
+    </Link>
+  ))}
+</div>
+</section>
+
           </div>
 
           <section className="pt-5">

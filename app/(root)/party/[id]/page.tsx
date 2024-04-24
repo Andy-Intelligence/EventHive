@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const getEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `https://event-hive-liart.vercel.app/api/event/${id.id}`,
+      `http://localhost:3000/api/event/${id}`,
       {
         cache: "no-store",
       }
@@ -29,7 +29,7 @@ const getEvent = async (id: any) => {
 const fetchUsersAttendingEvent = async (id: any) => {
   try {
     const res = await fetch(
-      `https://event-hive-liart.vercel.app/api/event-attendance-count/${id}`,
+      `http://localhost:3000/api/event-attendance-count/${id}`,
       {
         cache: "no-store",
       }
@@ -54,7 +54,8 @@ export default  function Page({ params }: { params: { id: string } }) {
     const fetchData = async () => {
       try {
         // Fetch event details
-        const { event } = await getEvent(params);
+        console.log(params)
+        const { event } = await getEvent(params.id);
         setEvent(event);
 
         // Fetch users attending the event

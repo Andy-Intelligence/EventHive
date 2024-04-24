@@ -36,7 +36,7 @@ const Register = () => {
     // Handle form submission logic here
     try {
       const res = await fetch(
-        `https://event-hive-liart.vercel.app/api/register-user`,
+        `http://localhost:3000/api/register-user`,
         {
           method: "POST",
           body: JSON.stringify({ formData }),
