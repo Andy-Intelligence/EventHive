@@ -55,11 +55,11 @@ export default  function Page({ params }: { params: { id: string } }) {
       try {
         // Fetch event details
         console.log(params)
-        const { event } = await getEvent(params.id);
+        const { event } = await getEvent(params?.id);
         setEvent(event);
 
         // Fetch users attending the event
-        const users = await fetchUsersAttendingEvent(event._id);
+        const users = await fetchUsersAttendingEvent(event?._id);
         setUsers(users);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -82,14 +82,16 @@ export default  function Page({ params }: { params: { id: string } }) {
           src={event.eventFlyer}
           alt="event-thumbnail"
         /> */}
-        <CldImage
-          key={event?._id}
-          src={event?.eventFlyer?.secure_url}
-          alt="event-thumbnail"
-          height={960}
-          width={600}
-          className="cover"
-        />
+      {event && event.eventFlyer && event.eventFlyer.secure_url && (
+  <CldImage
+    key={event._id}
+    src={event.eventFlyer.secure_url}
+    alt="event-thumbnail"
+    height={960}
+    width={600}
+    className="cover"
+  />
+)}
       </section>
       <section className="bg-white border border-black w-full flex flex-col p-4 text-wrap break-all break-words whitespace-normal">
         <div>
