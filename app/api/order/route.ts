@@ -42,6 +42,7 @@ export async function POST(request: any) {
 
   // Create a new order
 //   const order = new Order({ eventId, userId, numTickets, totalPrice });
+// await Order.find()
 const order = await Order.create({ eventId, userId, numTickets, totalPrice });
 
 

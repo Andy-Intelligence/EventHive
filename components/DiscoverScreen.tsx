@@ -23,7 +23,7 @@ const getEventCategory = async (category: any) => {
   console.log(category);
   try {
     const res = await fetch(
-      `https://event-hive-liart.vercel.app/api/event-category/${category}`,
+      `http://localhost:3000/api/event-category/${category}`,
       {
         cache: "no-store",
       }
@@ -84,7 +84,7 @@ export default async function Page({ category }: EventCategoryProp) {
         </nav>
 
         <div className="event-filters">
-          <section>
+          {/* <section>
             <div className="flex items-center justify-between p-4">
               <Link href={"/find-event"}>
                 <Button text={"Events"} color={"black"} />
@@ -93,11 +93,11 @@ export default async function Page({ category }: EventCategoryProp) {
                 <Button text={"Deals"} color={"yellow-400 text-black"} />
               </Link>
             </div>
-          </section>
+          </section> */}
         </div>
         <div className="">
           <section>
-            <div className="">
+            <div className="my-7">
               <SwiperEffect events={events} />
             </div>
           </section>

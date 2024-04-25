@@ -58,6 +58,7 @@ const getEvents = async () => {
 
     // const session = await getSession()
     const { events } = (await getEvents()) ?? {};
+    console.log("ia m events",events)
     // const {user} = (await getUserDetails()) ?? {};
 const userDetails = await getCurrentUser()
     console.log("mm",userDetails)
@@ -154,7 +155,7 @@ const userDetails = await getCurrentUser()
               <Link href={"/show-all"}>show all</Link>
             </div>
             <div className="w-full flex flex-col items-center justify-center gap-2">
-  {events.reverse().slice(0,2).map((event:any, index:number) => (
+  {events?.reverse().slice(0,2).map((event:any, index:number) => (
     <Link key={index + 1} href={`/party/${event?._id}`}>
     <TrendingEvent
       key={index}
@@ -174,7 +175,7 @@ const userDetails = await getCurrentUser()
               <Link href={"/show-all"}>show all</Link>
             </div>
             <div className="w-full flex flex-col items-center justify-center gap-2">
-  {events.reverse().slice(0,2).map((event:any, index:number) => (
+  {events?.reverse().slice(0,2).map((event:any, index:number) => (
     <Link key={index + 1} href={`/party/${event?._id}`}>
     <OffbeatEvent
       key={index}

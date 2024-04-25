@@ -26,27 +26,7 @@ import {
   formatAttendanceNumber,
 } from "@/utils/helpingFunctions/functions";
 
-import gsap from 'gsap';
 
-import { useGSAP } from '@gsap/react';
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(useGSAP);
-}
-
-//import { useGSAP } from "@gsap/react";
-    
-import { CustomEase } from "gsap/CustomEase";
-import { RoughEase, ExpoScaleEase, SlowMo } from "gsap/EasePack";
-    
-import { Flip } from "gsap/Flip";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Observer } from "gsap/Observer";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { Draggable } from "gsap/Draggable";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { EaselPlugin } from "gsap/EaselPlugin";
-import { PixiPlugin } from "gsap/PixiPlugin";
-import { TextPlugin } from "gsap/TextPlugin";
 
 
 import Avatar from '@mui/material/Avatar';
@@ -54,7 +34,6 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import { IoLocationSharp } from 'react-icons/io5';
 
 
-gsap.registerPlugin(Flip,ScrollTrigger,Observer,ScrollToPlugin,Draggable,MotionPathPlugin,EaselPlugin,PixiPlugin,TextPlugin,RoughEase,ExpoScaleEase,SlowMo,CustomEase);
 
 // gsap.registerPlugin(MotionPathPlugin, ScrollToPlugin, TextPlugin);
 
@@ -72,7 +51,7 @@ interface EventProp {
 
 
 export default function SwiperEffect({events}:any) {
-  console.log(events)
+  // console.log(events)
 const router = useRouter()
  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
  // const [filteredevents, setFilteredEvents] = useState<Event[]>([]);
@@ -192,7 +171,7 @@ const router = useRouter()
      <div className='flex items-center justify-center '>
       
               <div className='flex items-center justify-center '>
-  {event?.orders?.reverse().slice(0,3).map((user:any, index:number)=>{
+  {event?.orders.reverse().slice(0,3).map((user:any, index:number)=>{
     return (
       <img 
         key={index}

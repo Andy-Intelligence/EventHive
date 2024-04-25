@@ -13,6 +13,13 @@ export async function GET(req: any, { params }: any) {
   console.log("ggg", regexCategory);
   const events = await Event.find({
     eventCategory: { $regex: regexCategory.join("|"), $options: "i" },
+  }).populate({
+    path:"orders",
+    populate:{
+        path:"userId",
+        model:"User"
+    }
+
   });
   return NextResponse.json({ events });
 }
