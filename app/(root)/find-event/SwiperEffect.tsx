@@ -58,7 +58,7 @@ const router = useRouter()
  const [filteredEventsLocation, setFilteredEventsLocation] = useState<any>([]);
 
 
-
+console.log(events)
  useEffect(() => {
    const successCallback = (location: UserLocation) => {
      setUserLocation(location);

@@ -1,8 +1,10 @@
 import mongoDbConnect from "@/(backend)/connectionToDatabase/mongoDbConnect";
 import Event from "@/(backend)/models/event";
+import Order from "@/(backend)/models/order";
+import User from "@/(backend)/models/user";
 import { NextResponse } from "next/server";
 import cloudinary from "@/utils/cloudinary";
-import Order from "@/(backend)/models/order";
+
 // import { getCurrentUser } from "@/utils/getUserDetails";
 
 export async function POST(request: any) {
@@ -42,15 +44,25 @@ export async function POST(request: any) {
 }
 
 export async function GET() {
-  await mongoDbConnect();
-  const events = await Event.find().populate({
-      path: 'orders',
+  try {
+    await mongoDbConnect();
+    
+    let events = await Event.find()
+    .populate({
+      path: "orders",
       populate: {
-          path: 'userId',
-          model: 'User' // Assuming your user model name is 'User'
-      }
-  });
-  return NextResponse.json({ events });
+        path: "userId",
+        model: "User", // Assuming your user model name is 'User'
+      },
+    })
+    return NextResponse.json({ events });
+  } catch (error) {
+     return NextResponse.json(
+       { error: error, },
+       { status: 500 }
+     );
+  }
+  
 }
 
 
