@@ -1,8 +1,11 @@
 "use client";
 import Button from "@/components/layoutComponents/Button";
+import CategoryButton from "@/components/layoutComponents/CategoryButton";
 import {
+  convertToMonth,
   formatAmount,
   formatDateTime,
+  getDayFromDate,
 } from "@/utils/helpingFunctions/functions";
 import { CldImage } from "next-cloudinary";
 import { useRouter } from "next/navigation";
@@ -76,22 +79,50 @@ export default  function Page({ params }: { params: { id: string } }) {
   console.log(users);
   return (
     <div className="p-2 flex flex-col space-y-8 font-poppins items-center justify-center">
-      <section>
+      <section className="relative">
         {/* <img
           className="h-[500px] w-full"
           src={event.eventFlyer}
           alt="event-thumbnail"
         /> */}
-      {event && event.eventFlyer && event.eventFlyer.secure_url && (
-  <CldImage
-    key={event._id}
-    src={event.eventFlyer.secure_url}
-    alt="event-thumbnail"
-    height={960}
-    width={600}
-    className="cover"
-  />
-)}
+        {event && event.eventFlyer && event.eventFlyer.secure_url && (
+          <CldImage
+            key={event._id}
+            src={event.eventFlyer.secure_url}
+            alt="event-thumbnail"
+            height={960}
+            width={600}
+            className="cover  rounded-lg"
+          />
+        )}
+        {/* <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white p-2 text-sm">
+          MatchMaking
+        </div> */}
+        <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg ">
+          <div className="text-xl font-bold  text-white">
+            {getDayFromDate(event?.eventDate)}
+          </div>{" "}
+          <div>{convertToMonth(event?.eventDate)}</div>
+        </div>
+      </section>
+      <section className="flex flex-col justify-between items-start gap-3 w-full">
+        <div className="flex items-center justify-end text-xl w-full">
+          <p className="flex items-center justify-center font-bold text-black">
+            {formatAmount(1000)}{" "}
+            <span className="font-normal text-gray text-sm">/Person</span>
+          </p>
+        </div>
+        <div className="flex items-center justify-center  gap-2">
+          <div className="flex items-center justify-center">
+            <CategoryButton
+              text={event?.eventCategory}
+              category={event?.eventCategory}
+            />
+          </div>
+          <div className="flex items-center justify-center">
+            <CategoryButton text={"5.0"} category={"StarRating"} />
+          </div>
+        </div>
       </section>
       <section className="bg-white border border-black w-full flex flex-col p-4 text-wrap break-all break-words whitespace-normal">
         <div>

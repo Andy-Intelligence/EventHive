@@ -115,9 +115,7 @@ console.log(events)
 
 
   return (
-   
     <div className="relative">
-      
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -134,12 +132,11 @@ console.log(events)
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper min-h-[50vh]"
       >
-
         {events?.map((event: any, index: any) => (
           <SwiperSlide key={event?._id + index}>
             <main
               onClick={(e) => gotoEventProfile(e, event?._id)}
-              className="bg-white p-2 rounded-lg max-h-[60vh]"
+              className="bg-white p-2 rounded-lg max-h-[60vh] border-2 border-[rgba(34,34,34,0.1)]"
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
                 <div className="relative flex flex-col items-center  overflow-clip justify-center">
@@ -151,10 +148,15 @@ console.log(events)
                     width={960}
                     // preserveTransformations
                     crop="fill"
-    // sizes="100vw 100vh"
+                    // sizes="100vw 100vh"
                     className="cover rounded-lg max-h-[40vh]"
                   />
-                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center "><div className="text-xl font-bold  text-white">{getDayFromDate(event?.eventDate)}</div> <div>{convertToMonth(event?.eventDate)}</div></div>
+                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg ">
+                    <div className="text-xl font-bold  text-white">
+                      {getDayFromDate(event?.eventDate)}
+                    </div>{" "}
+                    <div>{convertToMonth(event?.eventDate)}</div>
+                  </div>
                 </div>
                 <div className="event-description flex flex-col items-center justify-center mb-2">
                   <h2 className="font-extrabold text-3xl">
@@ -166,50 +168,48 @@ console.log(events)
                       {convertToTime(event?.eventDate)}
                     </span>
                   </div>
-                  <div className='w-full flex items-start'>
-      
-     <div className='flex items-center justify-center '>
-      
-              <div className='flex items-center justify-center '>
-  {event?.orders.reverse().slice(0,3).map((user:any, index:number)=>{
-    return (
-      <img 
-        key={index}
-        className={`h-[30px] w-[30px] rounded-full ${index !== 0 ? '-ml-2' : ''}`} 
-        src={replaceHttpWithHttps(user?.userId?.image)} 
-        alt='pics'
-        style={{ zIndex: event.orders.length - index }} // Adjust the zIndex dynamically
-      />
-    )
-  })}
-</div>
+                  <div className="w-full flex items-start">
+                    <div className="flex items-center justify-center ">
+                      <div className="flex items-center justify-center ">
+                        {event?.orders
+                          .reverse()
+                          .slice(0, 3)
+                          .map((user: any, index: number) => {
+                            return (
+                              <img
+                                key={index}
+                                className={`h-[30px] w-[30px] rounded-full ${
+                                  index !== 0 ? "-ml-2" : ""
+                                }`}
+                                src={replaceHttpWithHttps(user?.userId?.image)}
+                                alt="pics"
+                                style={{ zIndex: event.orders.length - index }} // Adjust the zIndex dynamically
+                              />
+                            );
+                          })}
+                      </div>
 
-              <span className='ml-1 flex items-center justify-center text-[13px] text-black font-[400] break-all whitespace-normal'> {formatAttendanceNumber(event?.orders?.length)} Going</span>
-              </div>
+                      <span className="ml-1 flex items-center justify-center text-[13px] text-black font-[400] break-all whitespace-normal">
+                        {" "}
+                        {formatAttendanceNumber(event?.orders?.length)} Going
+                      </span>
+                    </div>
                   </div>
 
-
                   <div className="flex items-center justify-start font-bold gap-1 text-sm w-full text-black py-2">
-          <div className='flex items-center justify-center'><IoLocationSharp size={15} /></div>
-          <div className='flex items-center justify-center'>{event.eventLocation}</div>
-         
-        </div>
+                    <div className="flex items-center justify-center">
+                      <IoLocationSharp size={15} />
+                    </div>
+                    <div className="flex items-center justify-center">
+                      {event.eventLocation}
+                    </div>
+                  </div>
                 </div>
-
-    
-
-   
-
-
-
-
-
               </div>
             </main>
           </SwiperSlide>
         ))}
       </Swiper>
-   
     </div>
   );
 }

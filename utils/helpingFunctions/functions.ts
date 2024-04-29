@@ -215,7 +215,7 @@ export function formatAmount(amount:any) {
   const formatter = new Intl.NumberFormat('en-NG', {
     style: 'currency',
     currency: 'NGN', // Nigerian Naira
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   });
 
   // Format the amount using the NumberFormat object

@@ -29,7 +29,8 @@ body {
 } */
 
 body {
-  background: linear-gradient(to top, #7e57c2 20%, #673ab7 40%, #512da8 60%, #ff4081 80%, #f50057 100%);
+  /* background: linear-gradient(to top, #7e57c2 20%, #673ab7 40%, #512da8 60%, #ff4081 80%, #f50057 100%); */
+  background-color: #F9F9F9;
 }
 
 

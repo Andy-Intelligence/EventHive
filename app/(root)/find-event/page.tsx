@@ -150,7 +150,7 @@ const userDetails = await getCurrentUser()
             </section>
 
             <section className="w-full flex flex-col items-center justify-center my-4 ">
-            <div className="flex w-full items-center justify-between p-4 font-bold text-white">
+            <div className="flex w-full items-center justify-between p-4 font-bold text-black">
               <p>Trending Events</p>
               <Link href={"/show-all"}>show all</Link>
             </div>
@@ -170,7 +170,7 @@ const userDetails = await getCurrentUser()
 </section>
 
             <section className="w-full flex flex-col items-center justify-center my-4 ">
-            <div className="flex w-full items-center justify-between p-4 font-bold text-white">
+            <div className="flex w-full items-center justify-between p-4 font-bold text-black">
               <p>Offbeat Events</p>
               <Link href={"/show-all"}>show all</Link>
             </div>
@@ -193,7 +193,7 @@ const userDetails = await getCurrentUser()
           </div>
 
           <section className="pt-5">
-            <div className="flex items-center justify-between p-4 font-bold text-white">
+            <div className="flex items-center justify-between p-4 font-bold text-black">
               <p>Discover Events</p>
               <Link href={"/show-all"}>show all</Link>
             </div>
