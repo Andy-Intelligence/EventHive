@@ -44,17 +44,19 @@ export async function POST(request: any) {
 }
 
 export async function GET() {
+  await mongoDbConnect();
   try {
-    await mongoDbConnect();
     
-    let events = await Event.find()
-    .populate({
+    // const a = await Event.find()
+    let events = await Event.find().populate({
       path: "orders",
+      model:Order,
       populate: {
         path: "userId",
-        model: "User", // Assuming your user model name is 'User'
+        model: User, 
       },
-    })
+    });
+    
     return NextResponse.json({ events });
   } catch (error) {
      return NextResponse.json(

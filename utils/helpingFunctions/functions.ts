@@ -280,3 +280,63 @@ export function formatTrendingEventDate(dateString: string): string {
   return date.toLocaleDateString('en-GB', options);
 }
 
+export function formatNumberToNaira(input: any) {
+  if (input < 1000) {
+    return `₦${input}`;
+  } else if (input >= 1000 && input < 10000) {
+   let formattedNum = (input / 1000).toFixed(3);
+   // Remove the last digit if it's zero
+   if (formattedNum.slice(-1) === "0") {
+     formattedNum = formattedNum.slice(0, -4);
+   }
+   return "₦" + formattedNum + "k";
+  } else if (input >= 10000 && input < 100000) {
+    const decimalPart = input % 1000 === 0 ? "" : `.${input % 1000}`;
+    const formattedDecimalPart = decimalPart.endsWith("0")
+      ? decimalPart.slice(0, -1)
+      : decimalPart;
+    return `₦${Math.floor(input / 1000)}${formattedDecimalPart}k`;
+  } else if (input >= 100000 && input < 1000000) {
+    return `₦${(input / 1000).toFixed(0)}k`;
+  } else if (input >= 1000000) {
+    let numberString = input.toString();
+
+    // Add commas to the number string
+    var formattedNumber = numberString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    return "₦" + formattedNumber;
+  }
+}
+
+
+export function convertTimeToCustomFormat(dateString:string) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const date = new Date(dateString);
+  const day = days[date.getDay()];
+  const month = months[date.getMonth()];
+  const dateNum = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+  const formattedTime = `${day} ${dateNum} ${month} - `;
+
+  return formattedTime;
+}

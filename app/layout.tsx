@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/providers/SessionProvider'
+import { MapProvider } from '@/utils/providers/MapProvider'
 // import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,7 +24,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <MapProvider>{children}</MapProvider>
+        </SessionProvider>
       </body>
     </html>
   );
