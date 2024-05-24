@@ -52,7 +52,7 @@ const SearchBar: React.FC = () => {
     //   console.error(error);
     // }
   
-  },300);
+  },200);
 
   const handleFilter = (e:any) => {
     e.preventDefault()
@@ -82,7 +82,7 @@ const SearchBar: React.FC = () => {
 
         <button
           type="submit"
-          // onClick={handleSearch}
+          // onClick={}
           className="submit-btn hover:border-gray-700 hover:text-gray-700 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-sm font-medium text-gray-400 peer-focus:border-gray-700 peer-focus:text-gray-700"
         >
           <AiOutlineSearch size={32} />
