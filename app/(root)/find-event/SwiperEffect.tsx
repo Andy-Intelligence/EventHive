@@ -64,8 +64,8 @@ export default function SwiperEffect({
   currentPage,
   events,
 }: {
-  query: string;
-  currentPage: number;
+  query?: string;
+  currentPage?: number;
   events:any;
 }) {
   // console.log(events)
