@@ -6,6 +6,10 @@ import SimilarUpcomingEventCard from "@/components/cards/SimilarUpcomingEventCar
 import { MapComponent } from "@/components/externalApiViews/Map";
 import Button from "@/components/layoutComponents/Button";
 import CategoryButton from "@/components/layoutComponents/CategoryButton";
+import CountDown from 'react-countdown'
+import useWindowSize from "react-use/lib/useWindowSize";
+import Countdown, { zeroPad } from "react-countdown";
+import Confetti from "react-confetti";
 import {
   convertTimeToCustomFormat,
   convertToMonth,
@@ -31,6 +35,8 @@ import {
 } from "react-icons/bs";
 import { FiClock } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import EventCountDownCompleted from "@/components/EventCountDownCompleted";
+import ConfettiComponent from "@/components/ConfettiComponent";
 
 const getEvent = async (id: any) => {
   try {
@@ -67,12 +73,18 @@ const fetchUsersAttendingEvent = async (id: any) => {
 };
 
 export default function Page({ params }: { params: { id: string } }) {
+  const { width, height } = useWindowSize();
   const router = useRouter();
   const [event, setEvent] = useState<any>(null);
   const [users, setUsers] = useState<any>([]);
   const [copied, setCopied] = useState(false);
   const [similarEvents, setSimilarEvents] = useState<any>([]);
   const [similarUpcomingEvents, setSimilarUpcomingEvents] = useState<any>([]);
+   const [showEventStarted, setShowEventStarted] = useState(false);
+
+   const handleComplete = () => {
+     setShowEventStarted(true);
+   };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,6 +125,43 @@ export default function Page({ params }: { params: { id: string } }) {
     }
   };
 
+  const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
+    if (completed) {
+      // Render the event started message
+      return (
+        <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
+            The Event Started!
+          </h2>
+          <p className="text-center text-xl text-gray-700 mb-4">{event.eventTitle}</p>
+          <ConfettiComponent duration={5} />
+        </div>
+      );
+    } else {
+      // Render the countdown timer
+      return (
+        <div className="flex space-x-2 font-bold text-xl text-black">
+          <div className="flex flex-col items-center p-2 bg-blue-200 rounded-lg">
+            <span className="text-4xl">{zeroPad(days)}</span>
+            <span className="text-sm">days</span>
+          </div>
+          <div className="flex flex-col items-center p-2 bg-blue-200 rounded-lg">
+            <span className="text-4xl">{zeroPad(hours)}</span>
+            <span className="text-sm">hours</span>
+          </div>
+          <div className="flex flex-col items-center p-2 bg-blue-200 rounded-lg">
+            <span className="text-4xl">{zeroPad(minutes)}</span>
+            <span className="text-sm">minutes</span>
+          </div>
+          <div className="flex flex-col items-center p-2 bg-blue-200 rounded-lg">
+            <span className="text-4xl">{zeroPad(seconds)}</span>
+            <span className="text-sm">seconds</span>
+          </div>
+        </div>
+      );
+    }
+  };
+
   if (!event) {
     return <LoadingComponent />;
   }
@@ -120,6 +169,27 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className="p-4 flex flex-col space-y-8 font-poppins items-center justify-center bg-gray-100 min-h-screen">
       {/* Event Image Section */}
+      {/* {event?.eventDate} */}
+      <div className="w-full countdown-container flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg">
+        {!showEventStarted ? (
+          <Countdown
+            // date={Date.now() + 5000}
+            date={new Date(event.eventDate)}
+            renderer={renderer}
+            onComplete={handleComplete}
+          />
+        ) : (
+          <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
+              Event Ongoing!
+            </h2>
+            <p className="text-center text-xl text-gray-700 mb-4">
+              {event.eventTitle}
+            </p>
+            <ConfettiComponent duration={5} />
+          </div>
+        )}
+      </div>
       <section className="relative w-full max-w-4xl mx-auto">
         {event.eventFlyer?.secure_url && (
           <CldImage
@@ -361,8 +431,11 @@ export default function Page({ params }: { params: { id: string } }) {
       <div>
         <h2 className="text-2xl font-bold mb-4">Similar Upcoming Events</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-          {similarEvents.map((similarUpcomingEvent:any) => (
-            <SimilarUpcomingEventCard key={similarUpcomingEvent._id} event={similarUpcomingEvent} />
+          {similarEvents.map((similarUpcomingEvent: any) => (
+            <SimilarUpcomingEventCard
+              key={similarUpcomingEvent._id}
+              event={similarUpcomingEvent}
+            />
           ))}
         </div>
       </div>
