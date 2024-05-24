@@ -25,7 +25,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider>
-          <MapProvider>{children}</MapProvider>
+          {children}
         </SessionProvider>
       </body>
     </html>

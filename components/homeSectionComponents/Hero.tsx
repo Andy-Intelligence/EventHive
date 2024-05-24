@@ -21,20 +21,20 @@ const Hero = () => {
  
   
   return (
-    <section className="h-screen w-screen bg-gradient-to-b from-purple-600 to-pink-500 flex flex-col items-center justify-between font-poppins pt-0 p-24">
+    <section className="h-screen w-screen  flex flex-col items-center justify-between font-poppins pt-0 p-24">
       <div className="h-screen w-screen flex flex-col items-center justify-between text-center">
         <div className="w-full">
           <Navbar />
         </div>
         <div className="w-[90%]">
-          <h1 className="font-poppins text-4xl font-extrabold text-white">
+          <h1 className="font-poppins text-4xl font-extrabold text-black">
             {phrase}
           </h1>
         </div>
         <div>
           <Button
             text={"Let's dive in"}
-            color={"pink text-white"}
+            color={"black text-white"}
             
             onClick={() => {
               router.push("/personal-interest");

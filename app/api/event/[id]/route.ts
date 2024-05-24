@@ -23,28 +23,40 @@ export async function PUT(request:any,{params}:any){
 
 export async function GET(request:any,{params}:any){
     
-    try{    
-        console.log("ddkkkkkkkkkkkkkkk",params)
-    const {id} = params
-    connectMongoDb()
-    const event = await Event.findOne({ _id: id }).populate([
-      {
-        path: "orders",
-        model: Order,
-        populate: {
-          path: "userId",
-          model: User,
+    try{
+      console.log("ddkkkkkkkkkkkkkkk", params);
+      const { id } = params;
+      connectMongoDb();
+      const event = await Event.findOne({ _id: id }).populate([
+        {
+          path: "orders",
+          model: Order,
+          populate: {
+            path: "userId",
+            model: User,
+          },
         },
-      },
-      {
-        path: "eventHost", // Assuming "eventHost" is the path to populate
-        model: User, // Assuming "User" is the model for the event host
-      },
-    ]);
-    return NextResponse.json({event},{status:201})
+        {
+          path: "eventHost", // Assuming "eventHost" is the path to populate
+          model: User, // Assuming "User" is the model for the event host
+        },
+      ]);
 
+      const similarEvents = await Event.find({
+        eventCategory: event.eventCategory,
+        _id: { $ne: id }, // Exclude the current event from recommendations
+      }).limit(3); // Limit to 5 recommendations
 
-} catch (error) {
+      const similarUpcomingEvents = await Event.find({
+        eventCategory: event.eventCategory,
+        eventDate: { $gte: new Date() },
+        _id: { $ne: id },
+      })
+        .limit(6)
+        .sort({ eventDate: 1 });
+
+      return NextResponse.json({ event,similarEvents,similarUpcomingEvents }, { status: 201 });
+    } catch (error) {
     return NextResponse.json({error:error})
 }
 }
