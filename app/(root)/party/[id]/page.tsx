@@ -9,6 +9,13 @@ import CategoryButton from "@/components/layoutComponents/CategoryButton";
 import CountDown from 'react-countdown'
 import useWindowSize from "react-use/lib/useWindowSize";
 import Countdown, { zeroPad } from "react-countdown";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import Confetti from "react-confetti";
 import {
   convertTimeToCustomFormat,
@@ -337,62 +344,78 @@ export default function Page({ params }: { params: { id: string } }) {
           <p className="mt-2">{event.eventDescription}</p>
         </div>
 
-        <div>
-          <h3 className="text-lg font-bold">Event Details</h3>
-          <ul className="list-disc pl-5 space-y-1 mt-2">
-            {event.eventDressCode && (
+        <Accordion
+          className="bg-gray-100   shadow-lg px-4"
+          type="single"
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <h3 className="text-lg font-bold">Event Details</h3>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div>
+                <ul className="list-disc pl-5 space-y-1 mt-2">
+                  {/* {event.eventDressCode && (
               <li className="text-sm">Dress Code: {event.eventDressCode}</li>
-            )}
-            {event.eventEnquiryPhoneNumber && (
-              <li className="text-sm">
-                Enquiry: {event.eventEnquiryPhoneNumber}
-              </li>
-            )}
-            {event.eventWebsite && (
-              <li className="text-sm">
-                Website:{" "}
-                <a href={event.eventWebsite} className="text-blue-500">
-                  {event.eventWebsite}
-                </a>
-              </li>
-            )}
-            {event.eventSponsor && (
-              <li className="text-sm">Sponsors: {event.eventSponsor}</li>
-            )}
-            {event.eventEntertainments && (
-              <li className="text-sm">
-                Entertainment: {event.eventEntertainments}
-              </li>
-            )}
-            {event.eventGuestArtist && (
-              <li className="text-sm">
-                Guest Artist: {event.eventGuestArtist}
-              </li>
-            )}
-            {event.eventGenderRequirement && (
-              <li className="text-sm">
-                Gender: {event.eventGenderRequirement}
-              </li>
-            )}
-            {event.eventAgeRequirement && (
+            )} */}
+                  {event.eventEnquiryPhoneNumber && (
+                    <li className="text-sm">
+                      Enquiry: {event.eventEnquiryPhoneNumber}
+                    </li>
+                  )}
+                  {event.eventWebsite && (
+                    <li className="text-sm">
+                      Website:{" "}
+                      <a href={event.eventWebsite} className="text-blue-500">
+                        {event.eventWebsite}
+                      </a>
+                    </li>
+                  )}
+                  {event.eventSponsor && (
+                    <li className="text-sm">Sponsors: {event.eventSponsor}</li>
+                  )}
+                  {event.eventEntertainments && (
+                    <li className="text-sm">
+                      Entertainment: {event.eventEntertainments}
+                    </li>
+                  )}
+                  {event.eventGuestArtist && (
+                    <li className="text-sm">
+                      Guest Artist: {event.eventGuestArtist}
+                    </li>
+                  )}
+                  {event.eventGenderRequirement && (
+                    <li className="text-sm">
+                      Gender: {event.eventGenderRequirement}
+                    </li>
+                  )}
+                  {/* {event.eventAgeRequirement && (
               <li className="text-sm">Age: {event.eventAgeRequirement}</li>
-            )}
-            {event.eventActivities && (
-              <li className="text-sm">Activities: {event.eventActivities}</li>
-            )}
-            {event.eventMaximumAttendanceNeeded && (
-              <li className="text-sm">
-                Slots: {event.eventMaximumAttendanceNeeded}
-              </li>
-            )}
-            {event.eventMaximumAttendanceNeeded && event.orders.length && (
+            )} */}
+                  {event.eventActivities && (
+                    <li className="text-sm">
+                      Activities: {event.eventActivities}
+                    </li>
+                  )}
+                  {event.eventMaximumAttendanceNeeded && (
+                    <li className="text-sm">
+                      Slots:{" "}
+                      {event.eventMaximumAttendanceNeeded - event.orders.length}
+                      /{event.eventMaximumAttendanceNeeded}
+                    </li>
+                  )}
+                  {/* {event.eventMaximumAttendanceNeeded && event.orders.length && (
               <li className="text-sm">
                 Available Slots:{" "}
                 {event.eventMaximumAttendanceNeeded - event.orders.length}
               </li>
-            )}
-          </ul>
-        </div>
+            )} */}
+                </ul>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         <div>
           <h3 className="font-bold">Comments and Reviews Section</h3>
