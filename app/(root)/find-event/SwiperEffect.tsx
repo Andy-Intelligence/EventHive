@@ -122,7 +122,7 @@ export default function SwiperEffect({
   };
 
   return (
-    <div className="relative p-6">
+    <div className="relative  p-4">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -143,10 +143,10 @@ export default function SwiperEffect({
           <SwiperSlide key={event?._id + index}>
             <main
               onClick={(e) => gotoEventProfile(e, event?._id)}
-              className="bg-white p-2 rounded-lg max-h-[60vh] border-2 border-[rgba(34,34,34,0.1)]"
+              className=" bg-white p-2 rounded-lg max-h-[60vh] border-2 border-[rgba(34,34,34,0.1)] "
             >
               <div className="event-image flex flex-col h-full justify-start gap-2">
-                <div className="relative flex flex-col items-center  overflow-clip justify-center">
+                <div className="relative flex flex-col items-center  overflow-clip justify-center ">
                   <CldImage
                     key={event?._id}
                     src={event?.eventFlyer?.secure_url}
@@ -218,7 +218,6 @@ export default function SwiperEffect({
           </SwiperSlide>
         ))}
       </Swiper>
-      
     </div>
   );
 }
