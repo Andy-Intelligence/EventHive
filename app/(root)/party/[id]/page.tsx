@@ -58,6 +58,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import EventCountDownCompleted from "@/components/EventCountDownCompleted";
 import ConfettiComponent from "@/components/ConfettiComponent";
 import CommentsSection from "@/components/CommentsSection";
+import { FaStar } from "react-icons/fa";
 
 const getEvent = async (id: any) => {
   try {
@@ -437,11 +438,11 @@ export default function Page({ params }: { params: { id: string } }) {
           <Drawer>
             <DrawerTrigger>
               {" "}
-              <div className="p-4 rounded-lg flex items-center w-full bg-white border border-gray-200 shadow-lg  max-w-4xl mx-auto  ">
+              <div className="p-4 rounded-lg flex items-center w-full bg-white border  border-gray-200 shadow-lg  max-w-4xl mx-auto  ">
                 <Image
                   src={replaceHttpWithHttps(event.eventHost?.image)}
                   alt="Organizer"
-                  className="w-12 h-12 rounded-full mr-4"
+                  className="w-16 h-16 rounded-full mr-4"
                   height={960}
                   width={600}
                 />
@@ -453,13 +454,22 @@ export default function Page({ params }: { params: { id: string } }) {
                     i am starting to think that this event has a future as the
                     biggest event
                   </p>
+                  <div className="rating mt-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <FaStar
+                        key={star}
+                        className={`star ${4 >= star ? "" : "empty"}`}
+                        // onClick={() => handleRatingChange(star)}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle className="font-bold text-xl">
-               Comments and Reviews
+                  Comments and Reviews
                 </DrawerTitle>
                 <DrawerDescription>
                   Get comments about the event
@@ -470,7 +480,6 @@ export default function Page({ params }: { params: { id: string } }) {
                 {/* <button className="bg-red-400" type="submit">Submit</button> */}
                 <DrawerClose className="" asChild>
                   <button className="flex item-center justify-center bg-gray-200 py-2">
-                 
                     <IoClose size={45} />
                   </button>
                 </DrawerClose>
