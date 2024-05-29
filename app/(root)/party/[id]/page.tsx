@@ -435,6 +435,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div>
           {/* <h3 className="font-bold">Comments and Reviews Section</h3>
           <small>This section is still being developed</small> */}
+          <h3 className="text-lg font-bold mb-2">Comments & Reviews (33)</h3>
           <Drawer>
             <DrawerTrigger>
               {" "}
@@ -447,12 +448,12 @@ export default function Page({ params }: { params: { id: string } }) {
                   width={600}
                 />
                 <div className="flex flex-col flex-grow item-start justify-start w-full">
-                  <h3 className="font-bold text-left">
+                  {/* <h3 className="font-bold text-left">
                     {event.eventHost?.username}
-                  </h3>
-                  <p className="text-left text-sm text-gray-500">
-                    i am starting to think that this event has a future as the
-                    biggest event
+                  </h3> */}
+                  <p className="text-left text-sm text-gray-500 truncate text-ellipsis max-h-14 whitespace-normal">
+                    i am starting to think that this event has a future as the 
+                    biggest event{" "}
                   </p>
                   <div className="rating mt-2">
                     {[1, 2, 3, 4, 5].map((star) => (
