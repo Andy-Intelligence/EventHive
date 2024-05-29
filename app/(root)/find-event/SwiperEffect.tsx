@@ -122,7 +122,7 @@ export default function SwiperEffect({
   };
 
   return (
-    <div className="relative">
+    <div className="relative p-6">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -232,99 +232,3 @@ export default function SwiperEffect({
 
 
 
-
-//  {
-//    <Carousel className="w-full max-w-sm">
-//      <CarouselContent className="-ml-1">
-//        {events?.map((event, index) => (
-//          <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
-//            <div className="p-1">
-//              {/* <Card> */}
-//              <CardContent className="flex aspect-square items-center justify-center p-6">
-//                <main
-//                  onClick={(e) => gotoEventProfile(e, event?._id)}
-//                  className="bg-white p-2 rounded-lg max-h-[60vh] border-2 border-[rgba(34,34,34,0.1)]"
-//                >
-//                  <div className="event-image flex flex-col h-full justify-start gap-2">
-//                    <div className="relative flex flex-col items-center  overflow-clip justify-center">
-//                      <CldImage
-//                        key={event?._id}
-//                        src={event?.eventFlyer?.secure_url}
-//                        alt="event-image"
-//                        height={960}
-//                        width={960}
-//                        // preserveTransformations
-//                        crop="fill"
-//                        // sizes="100vw 100vh"
-//                        className="cover rounded-lg max-h-[40vh]"
-//                      />
-//                      <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg ">
-//                        <div className="text-xl font-bold  text-white">
-//                          {getDayFromDate(event?.eventDate)}
-//                        </div>{" "}
-//                        <div>{convertToMonth(event?.eventDate)}</div>
-//                      </div>
-//                    </div>
-//                    <div className="event-description flex flex-col items-center justify-center mb-2">
-//                      <h2 className="font-extrabold text-3xl">
-//                        {event.eventTitle}
-//                      </h2>
-//                      <div className="details">
-//                        <span className="text-sm font-bold">
-//                          {/* sat, 21 oct@4:20PM */}
-//                          {convertToTime(event?.eventDate)}
-//                        </span>
-//                      </div>
-//                      <div className="w-full flex items-start">
-//                        <div className="flex items-center justify-center ">
-//                          <div className="flex items-center justify-center ">
-//                            {event?.orders
-//                              .reverse()
-//                              .slice(0, 3)
-//                              .map((user: any, index: number) => {
-//                                return (
-//                                  <img
-//                                    key={index}
-//                                    className={`h-[30px] w-[30px] rounded-full ${
-//                                      index !== 0 ? "-ml-2" : ""
-//                                    }`}
-//                                    src={replaceHttpWithHttps(
-//                                      user?.userId?.image
-//                                    )}
-//                                    alt="pics"
-//                                    style={{
-//                                      zIndex: event.orders.length - index,
-//                                    }} // Adjust the zIndex dynamically
-//                                  />
-//                                );
-//                              })}
-//                          </div>
-
-//                          <span className="ml-1 flex items-center justify-center text-[13px] text-black font-[400] break-all whitespace-normal">
-//                            {" "}
-//                            {formatAttendanceNumber(event?.orders?.length)} Going
-//                          </span>
-//                        </div>
-//                      </div>
-
-//                      <div className="flex items-center justify-start font-bold gap-1 text-sm w-full text-black py-2">
-//                        <div className="flex items-center justify-center">
-//                          <IoLocationSharp size={15} />
-//                        </div>
-//                        <div className="flex items-center justify-center">
-//                          {event.eventLocation}
-//                        </div>
-//                      </div>
-//                    </div>
-//                  </div>
-//                </main>
-//              </CardContent>
-//              {/* </Card> */}
-//            </div>
-//          </CarouselItem>
-//        ))}
-//      </CarouselContent>
-//      <CarouselPrevious />
-//      <CarouselNext />
-//    </Carousel>;
-//  }
