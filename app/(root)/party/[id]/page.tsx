@@ -151,13 +151,14 @@ export default function Page({ params }: { params: { id: string } }) {
     if (completed) {
       // Render the event started message
       return (
-        <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
-            The Event Started!
-          </h2>
-          <p className="text-center text-xl text-gray-700 mb-4">{event.eventTitle}</p>
-          <ConfettiComponent duration={5} />
-        </div>
+        // <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+        //   <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
+        //     The Event Started!
+        //   </h2>
+        //   <p className="text-center text-xl text-gray-700 mb-4">{event.eventTitle}</p>
+        //   <ConfettiComponent duration={5} />
+        // </div>
+        <div></div>
       );
     } else {
       // Render the countdown timer
@@ -192,24 +193,27 @@ export default function Page({ params }: { params: { id: string } }) {
     <div className="p-4 flex flex-col space-y-8 font-poppins items-center justify-center bg-gray-100 min-h-screen">
       {/* Event Image Section */}
       {/* {event?.eventDate} */}
-      <div className="w-full countdown-container flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg">
+      <div>
         {!showEventStarted ? (
-          <Countdown
-            // date={Date.now() + 5000}
-            date={new Date(event.eventDate)}
-            renderer={renderer}
-            onComplete={handleComplete}
-          />
-        ) : (
-          <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
-              Event Ongoing!
-            </h2>
-            <p className="text-center text-xl text-gray-700 mb-4">
-              {event.eventTitle}
-            </p>
-            <ConfettiComponent duration={5} />
+          <div className="w-full countdown-container flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg">
+            <Countdown
+              // date={Date.now() + 5000}
+              date={new Date(event.eventDate)}
+              renderer={renderer}
+              onComplete={handleComplete}
+            />
           </div>
+        ) : (
+          // <div className="animation-container flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+          //   <h2 className="text-4xl font-bold text-center text-green-500 mb-2">
+          //     Event Ongoing!
+          //   </h2>
+          //   <p className="text-center text-xl text-gray-700 mb-4">
+          //     {event.eventTitle}
+          //   </p>
+          //   <ConfettiComponent duration={5} />
+          // </div>
+          <div></div>
         )}
       </div>
       <section className="relative w-full max-w-4xl mx-auto">
@@ -360,7 +364,7 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
 
         <Accordion
-          className="bg-gray-100   shadow-lg px-4"
+          className="bg-gray-300   shadow-lg px-4"
           type="single"
           collapsible
         >
@@ -452,7 +456,7 @@ export default function Page({ params }: { params: { id: string } }) {
                     {event.eventHost?.username}
                   </h3> */}
                   <p className="text-left text-sm text-gray-500 truncate text-ellipsis max-h-14 whitespace-normal">
-                    i am starting to think that this event has a future as the 
+                    i am starting to think that this event has a future as the
                     biggest event{" "}
                   </p>
                   <div className="rating mt-2">
