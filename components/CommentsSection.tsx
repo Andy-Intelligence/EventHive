@@ -32,13 +32,13 @@ const CommentsSection = () => {
 
   return (
     <section className="comments-section">
-      <h3 className="font-bold text-xl">Comments and Reviews</h3>
+      
       <form className="comment-form" onSubmit={handleSubmit}>
         <textarea
           value={newComment}
           onChange={handleCommentChange}
           placeholder="Write your comment..."
-          rows={4}
+          rows={2}
           required
         />
         <div className="rating">

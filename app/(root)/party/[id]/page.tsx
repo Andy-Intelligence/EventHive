@@ -8,6 +8,7 @@ import Button from "@/components/layoutComponents/Button";
 import CategoryButton from "@/components/layoutComponents/CategoryButton";
 import CountDown from 'react-countdown'
 import useWindowSize from "react-use/lib/useWindowSize";
+import { IoClose } from "react-icons/io5";
 import Countdown, { zeroPad } from "react-countdown";
 import {
   Accordion,
@@ -445,29 +446,35 @@ export default function Page({ params }: { params: { id: string } }) {
                   width={600}
                 />
                 <div className="flex flex-col flex-grow item-start justify-start w-full">
-                  <h3 className="font-bold text-left">{event.eventHost?.username}</h3>
+                  <h3 className="font-bold text-left">
+                    {event.eventHost?.username}
+                  </h3>
                   <p className="text-left text-sm text-gray-500">
-                    i am starting to think that this event has a future as the biggest event
+                    i am starting to think that this event has a future as the
+                    biggest event
                   </p>
                 </div>
-                
-               
               </div>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Comments</DrawerTitle>
+                <DrawerTitle className="font-bold text-xl">
+               Comments and Reviews
+                </DrawerTitle>
                 <DrawerDescription>
                   Get comments about the event
                 </DrawerDescription>
               </DrawerHeader>
-              <DrawerFooter>
-                <button>Submit</button>
-                <DrawerClose asChild>
-                  <button >Cancel</button>
+              <CommentsSection />
+              <DrawerFooter className="flex ">
+                {/* <button className="bg-red-400" type="submit">Submit</button> */}
+                <DrawerClose className="" asChild>
+                  <button className="flex item-center justify-center bg-gray-200 py-2">
+                 
+                    <IoClose size={45} />
+                  </button>
                 </DrawerClose>
               </DrawerFooter>
-              <CommentsSection />
             </DrawerContent>
           </Drawer>
         </div>
