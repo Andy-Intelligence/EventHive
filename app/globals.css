@@ -267,3 +267,84 @@
   animation: fadeIn 2s ease-in-out;
 }
   /* ///////////////////////hero////////////////////////////////// */
+
+
+  /* ///////////////////////comment section////////////////////////////////// */
+  /* CSS for Comments and Reviews Section */
+
+.comments-section {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form {
+  margin-bottom: 2rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  resize: none;
+}
+
+.comment-form button {
+  background-color: #4a90e2;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-item {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.comment-item .comment-author {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.comment-item .comment-text {
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.rating .star {
+  color: #ffd700;
+  margin-right: 0.5rem;
+}
+
+.rating .star.empty {
+  color: #ccc;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.text-animation {
+  animation: fadeInOut 2s ease-in-out infinite;
+}
+
+  /* ///////////////////////comment section////////////////////////////////// */

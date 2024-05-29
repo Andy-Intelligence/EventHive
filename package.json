@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.13",
     "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-google-maps/api": "^2.19.3",
     "@react-spring/web": "^9.5.5",
@@ -50,7 +51,8 @@
     "swiper": "^10.3.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "use-debounce": "^10.0.0"
+    "use-debounce": "^10.0.0",
+    "vaul": "^0.9.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

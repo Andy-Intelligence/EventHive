@@ -16,6 +16,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
+
 import Confetti from "react-confetti";
 import {
   convertTimeToCustomFormat,
@@ -44,6 +56,7 @@ import { FiClock } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
 import EventCountDownCompleted from "@/components/EventCountDownCompleted";
 import ConfettiComponent from "@/components/ConfettiComponent";
+import CommentsSection from "@/components/CommentsSection";
 
 const getEvent = async (id: any) => {
   try {
@@ -418,8 +431,45 @@ export default function Page({ params }: { params: { id: string } }) {
         </Accordion>
 
         <div>
-          <h3 className="font-bold">Comments and Reviews Section</h3>
-          <small>This section is still being developed</small>
+          {/* <h3 className="font-bold">Comments and Reviews Section</h3>
+          <small>This section is still being developed</small> */}
+          <Drawer>
+            <DrawerTrigger>
+              {" "}
+              <div className="p-4 rounded-lg flex items-center w-full bg-white border border-gray-200 shadow-lg  max-w-4xl mx-auto  ">
+                <Image
+                  src={replaceHttpWithHttps(event.eventHost?.image)}
+                  alt="Organizer"
+                  className="w-12 h-12 rounded-full mr-4"
+                  height={960}
+                  width={600}
+                />
+                <div className="flex flex-col flex-grow item-start justify-start w-full">
+                  <h3 className="font-bold text-left">{event.eventHost?.username}</h3>
+                  <p className="text-left text-sm text-gray-500">
+                    i am starting to think that this event has a future as the biggest event
+                  </p>
+                </div>
+                
+               
+              </div>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Comments</DrawerTitle>
+                <DrawerDescription>
+                  Get comments about the event
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerFooter>
+                <button>Submit</button>
+                <DrawerClose asChild>
+                  <button >Cancel</button>
+                </DrawerClose>
+              </DrawerFooter>
+              <CommentsSection />
+            </DrawerContent>
+          </Drawer>
         </div>
       </section>
 
