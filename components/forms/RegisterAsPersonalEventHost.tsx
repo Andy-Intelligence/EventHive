@@ -1,189 +1,227 @@
-"use client"
-import React, { useState } from 'react'
-import Button from '../layoutComponents/Button';
-import { useRouter } from 'next/navigation';
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Button from "../layoutComponents/Button";
 
 interface UserDetails {
   user: any;
 }
 
+const RegisterAsPersonalEventHost = ({ user }: UserDetails) => {
+  const router = useRouter();
 
-const RegisterAsPersonalEventHost = ({user}:UserDetails) => {
-const router = useRouter();
+  const personalHostDefaultData = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobileNumber: "",
+    dateOfBirth: "",
+    accountNumber: "",
+    bankName: "",
+    accountName: "",
+    userId: user?._id,
+  };
 
-const personalHostDefaultData = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  mobileNumber: "",
-  dateOfBirth: "",
-  accountNumber: "",
-  bankName: "",
-  accountName: "",
-  userId: user?._id,
+  const [formData, setFormData] = useState(personalHostDefaultData);
 
-  // password: "",
-};
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { value, name } = e.target;
 
-const [formData, setFormData] = useState(personalHostDefaultData);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  const { value, name } = e.target;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        "https://event-hive-liart.vercel.app/api/personal-host-event",
+        {
+          method: "POST",
+          body: JSON.stringify({ formData }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-  setFormData((prev) => ({
-    ...prev,
-    
-    [name]: value,
-  }));
-};
-
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  // Handle form submission logic here
-  try {
-    const res = await fetch(
-      `https://event-hive-liart.vercel.app/api/personal-host-event`,
-      {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        headers: { "Content-Type": "application/json" },
+      if (!res.ok) {
+        console.log(res);
+        throw new Error("Failed to create Event");
       }
-    );
 
-    if (!res.ok) {
-      console.log(res);
-      throw new Error("Failed to create Event");
+      router.refresh();
+      router.push("/find-event");
+    } catch (error) {
+      console.error(error);
     }
 
-    router.refresh();
-    router.push("/find-event");
-  } catch (error) {
-    console.error(error);
-  }
-
-
-  console.log(formData)
-};
-
-
-
-
-
-
-
+    console.log(formData);
+  };
 
   return (
-    <div className="createForm font-sans flex items-center justify-center w-full p-5 ">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
-        <div className="w-full flex items-center justify-center">
-          <h1 className="font-extrabold font-sans text-3xl mb-4">
-            Register as EventHost
-          </h1>
+    <div className="flex items-center justify-center w-full p-10 bg-gray-100 min-h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md space-y-6"
+      >
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          Register as Event Host
+        </h1>
+
+        <div>
+          <label
+            htmlFor="firstName"
+            className="block text-gray-600 font-semibold"
+          >
+            First Name
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="firstName"
+            name="firstName"
+            onChange={handleChange}
+            required
+            value={formData.firstName}
+          />
         </div>
 
-        <label className="createEventLabel">First Name</label>
-        <input
-          className="createEventInput"
-          type="text"
-          placeholder=""
-          id="firstName"
-          name="firstName"
-          onChange={handleChange}
-          required={true}
-          value={formData.firstName}
-        />
-        <label className="createEventLabel">Last Name</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="lastName"
-          name="lastName"
-          onChange={handleChange}
-          required={true}
-          value={formData.lastName}
-        />
-        <label className="createEventLabel">Email</label>
-        <input
-          className="createEventInput"
-          type="email"
-          id="email"
-          name="email"
-          onChange={handleChange}
-          required={true}
-          value={formData.email}
-        />
-        <label className="createEventLabel">Mobile Number</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="mobileNo"
-          name="mobileNumber"
-          onChange={handleChange}
-          required={true}
-          value={formData.mobileNumber}
-        />
-        <label className="createEventLabel">Date Of Birth</label>
-        <input
-          className="createEventInput"
-          type="date"
-          id="dobLabel"
-          name="dateOfBirth"
-          onChange={handleChange}
-          required={false}
-          value={formData.dateOfBirth}
-        />
-        <label className="createEventLabel">Account Number</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="accountNumber"
-          name="accountNumber"
-          onChange={handleChange}
-          required={true}
-          value={formData.accountNumber}
-        />
-        <label className="createEventLabel">Bank Name</label>
-        <select
-          className="createEventInput"
-          id="bankName"
-          name="bankName"
-          onChange={handleChange}
-          required={true}
-          value={formData.bankName}
-        >
-          <option value={"parties"}>Parties</option>
-          <option value={"recreational"}>Recreational</option>
-          <option value={"artAndCulture"}>Arts and Culture</option>
-          <option value={"restaurantAndLounges"}>Restaurant And Lounges</option>
-          <option value={"concerts"}>Concerts</option>
-          <option value={"matchMaking"}>MatchMaking</option>
-        </select>
-        <label className="createEventLabel">Account Name</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="accountName"
-          name="accountName"
-          onChange={handleChange}
-          required={true}
-          value={formData.accountName}
-        />
-        {/* <label className="createEventLabel">Password</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="password"
-          name="password"
-          onChange={handleChange}
-          required={true}
-          value={formData.password}
-        /> */}
+        <div>
+          <label
+            htmlFor="lastName"
+            className="block text-gray-600 font-semibold"
+          >
+            Last Name
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="lastName"
+            name="lastName"
+            onChange={handleChange}
+            required
+            value={formData.lastName}
+          />
+        </div>
 
-        <div className="w-full flex items-center justify-center">
+        <div>
+          <label htmlFor="email" className="block text-gray-600 font-semibold">
+            Email
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="email"
+            id="email"
+            name="email"
+            onChange={handleChange}
+            required
+            value={formData.email}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="mobileNumber"
+            className="block text-gray-600 font-semibold"
+          >
+            Mobile Number
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="mobileNumber"
+            name="mobileNumber"
+            onChange={handleChange}
+            required
+            value={formData.mobileNumber}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="dateOfBirth"
+            className="block text-gray-600 font-semibold"
+          >
+            Date Of Birth
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="date"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            onChange={handleChange}
+            value={formData.dateOfBirth}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="accountNumber"
+            className="block text-gray-600 font-semibold"
+          >
+            Account Number
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="accountNumber"
+            name="accountNumber"
+            onChange={handleChange}
+            required
+            value={formData.accountNumber}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="bankName"
+            className="block text-gray-600 font-semibold"
+          >
+            Bank Name
+          </label>
+          <select
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            id="bankName"
+            name="bankName"
+            onChange={handleChange}
+            required
+            value={formData.bankName}
+          >
+            <option value="" disabled>
+              Select Bank
+            </option>
+            <option value="bank1">Bank 1</option>
+            <option value="bank2">Bank 2</option>
+            <option value="bank3">Bank 3</option>
+            <option value="bank4">Bank 4</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="accountName"
+            className="block text-gray-600 font-semibold"
+          >
+            Account Name
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="accountName"
+            name="accountName"
+            onChange={handleChange}
+            required
+            value={formData.accountName}
+          />
+        </div>
+
+        <div className="flex justify-center">
           <Button
-            color="black my-5"
+            color="black"
             text="Continue"
             onSubmit={(e) => handleSubmit}
           />
@@ -191,6 +229,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       </form>
     </div>
   );
-}
+};
 
-export default RegisterAsPersonalEventHost
+export default RegisterAsPersonalEventHost;

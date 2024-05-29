@@ -1,19 +1,19 @@
 "use client";
+
 import React, { useState } from "react";
-import Button from "../layoutComponents/Button";
 import { useRouter } from "next/navigation";
-import { CldUploadButton } from "next-cloudinary";
+import Button from "../layoutComponents/Button";
 
 interface UserProp {
-  user:any
+  user: any;
 }
-const CreateEvent = ({user}:UserProp) => {
 
+const CreateEvent = ({ user }: UserProp) => {
   const router = useRouter();
   const [flyerImage, setFlyerImage] = useState<any>();
   const eventDefaultData = {
     eventId: "",
-    eventHost:"",
+    eventHost: "",
     eventFlyer: "",
     eventTitle: "",
     eventDate: "",
@@ -21,48 +21,41 @@ const CreateEvent = ({user}:UserProp) => {
     eventCategory: "",
     eventLocation: "",
     eventDescription: "",
-    eventEntertainments: "", // Assuming it's an array of entertainment options
+    eventEntertainments: "",
     eventTopic: "",
-    eventTime: "", // Assuming it's a specific time format
-    eventGuest: "", // Assuming it's an array of guests
-    eventFee: 0, // Assuming it's a numerical value
-    eventGenderRequirement: "", // Assuming it's a specific gender requirement
-    eventAgeRequirement: "", // Assuming it's a specific age requirement
-    eventTimeline: "", // Assuming it's a textual description of the timeline
-    eventWebsite: "", // Assuming it's a URL
-    eventOrganiser: "", // Assuming it's the organizer's name or identifier
-    eventSponsor: "", // Assuming it's the sponsor's name or identifier
-    // eventVerification: false, // Assuming it's a verification status
-    eventDressCode: "", // Assuming it's a dress code description
-    // eventAttendanceCount: 0, // Assuming it's a numerical count
-    eventMaximumAttendanceNeeded: 0, // Assuming it's a numerical value
-    eventEnquiryPhoneNumber: "", // Assuming it's a phone number
-    eventLocationForinteractiveMap: "", // Assuming it's a location description or coordinates
-    eventLatitude: 0, // Assuming it's a location description or coordinates
-    eventLongitude: 0, // Assuming it's a location description or coordinates
-    eventActivities: "", // Assuming it's a description of activities
-    // eventComments: [], // Assuming it's an array of comments
-    // eventReviews: [], // Assuming it's an array of reviews
+    eventTime: "",
+    eventGuest: "",
+    eventFee: 0,
+    eventGenderRequirement: "",
+    eventAgeRequirement: "",
+    eventTimeline: "",
+    eventWebsite: "",
+    eventOrganiser: "",
+    eventSponsor: "",
+    eventDressCode: "",
+    eventMaximumAttendanceNeeded: 0,
+    eventEnquiryPhoneNumber: "",
+    eventLocationForinteractiveMap: "",
+    eventLatitude: 0,
+    eventLongitude: 0,
+    eventActivities: "",
   };
 
   const [formData, setFormData] = useState(eventDefaultData);
 
   const handleImageChange = (e: any) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     setFileToBase(file);
-    console.log(file)
+    console.log(file);
   };
 
-const setFileToBase = (file:any)=>{
-  const reader = new FileReader();
-  reader.readAsDataURL(file)
-  reader.onloadend = ()=>{
-    setFlyerImage(reader.result)
-  }
-
-
-}
-
+  const setFileToBase = (file: any) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFlyerImage(reader.result);
+    };
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -77,22 +70,20 @@ const setFileToBase = (file:any)=>{
 
     setFormData((prev) => ({
       ...prev,
-      // eventFlyer:flyerImage,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
     const updatedFormData = {
       ...formData,
-      eventHost:user?._id,
-      eventFlyer: flyerImage, // Assign the base64 image to eventFlyer
+      eventHost: user?._id,
+      eventFlyer: flyerImage,
     };
-    console.log(updatedFormData)
+    console.log(updatedFormData);
     try {
-      const res = await fetch(`http://localhost:3000/api/event`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event`, {
         method: "POST",
         body: JSON.stringify(updatedFormData),
         headers: { "Content-Type": "application/json" },
@@ -111,295 +102,475 @@ const setFileToBase = (file:any)=>{
   };
 
   return (
-    <div className="createForm font-sans flex items-center justify-center w-full p-5 ">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
-        <div className="w-full flex items-center justify-center">
-          <h1 className="font-extrabold font-sans text-3xl mb-4">
-            Create Your Event
-          </h1>
+    <div className="flex items-center justify-center w-full p-10 bg-gray-100 min-h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md space-y-6"
+      >
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          Create Your Event
+        </h1>
+
+        <div>
+          <label
+            htmlFor="eventTitle"
+            className="block text-gray-600 font-semibold"
+          >
+            Title
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventTitle"
+            name="eventTitle"
+            onChange={handleChange}
+            required
+            value={formData.eventTitle}
+          />
         </div>
 
-        <label className="createEventLabel">Title</label>
-        <input
-          className="createEventInput"
-          type="text"
-          placeholder=""
-          id="eventTitle"
-          name="eventTitle"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventTitle}
-        />
-        <label className="createEventLabel">Flyer</label>
-        {/* <CldUploadButton uploadPreset="eventhive" /> */}
-        <input
-          className="createEventInput"
-          type="file"
-          id="flyer"
-          name="eventFlyer"
-          onChange={handleImageChange}
-          required={true}
-          // value={formData.eventFlyer}
-        />
-        <label className="createEventLabel">Date</label>
-        <input
-          className="createEventInput"
-          type="date"
-          id="date"
-          name="eventDate"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventDate}
-        />
-        <label className="createEventLabel">details</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="details"
-          name="eventDetails"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventDetails}
-        />
-        <label className="createEventLabel">Category</label>
-        <select
-          className="createEventInput"
-          id="category"
-          name="eventCategory"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventCategory}
-        >
-          <option value={"parties"}>Parties</option>
-          <option value={"recreational"}>Recreational</option>
-          <option value={"artsandCulture"}>Arts and Culture</option>
-          <option value={"restaurantandlounges"}>Restaurant And Lounges</option>
-          <option value={"concerts"}>Concerts</option>
-          <option value={"matchmaking"}>MatchMaking</option>
-        </select>
-        <label className="createEventLabel">Location</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="location"
-          name="eventLocation"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventLocation}
-        />
-  
-        <label className="createEventLabel">Description</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="description"
-          name="eventDescription"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventDescription}
-        />
-        <label className="createEventLabel">Entertainments</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="entertainments"
-          name="eventEntertainments"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventEntertainments}
-        />
-        <label className="createEventLabel">Topic</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="topic"
-          name="eventTopic"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventTopic}
-        />
-        <label className="createEventLabel">Time</label>
-        <input
-          className="createEventInput"
-          type="time"
-          id="time"
-          name="eventTime"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventTime}
-        />
-        <label className="createEventLabel">Guests</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="guest"
-          name="eventGuest"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventGuest}
-        />
-        <label className="createEventLabel">Fee</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="fee"
-          name="eventFee"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventFee}
-        />
-        <label className="createEventLabel">Required Gender</label>
-        <select
-          className="createEventInput"
-          id="genderRequirement"
-          name="eventGenderRequirement"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventGenderRequirement}
-        >
-          <option value={"Male"}>Male</option>
-          <option value={"Female"}>Female</option>
-        </select>
-        <label className="createEventLabel">Required Age</label>
-        <input
-          className="createEventInput"
-          type="number"
-          id="ageRequirement"
-          name="eventAgeRequirement"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventAgeRequirement}
-        />
-        <label className="createEventLabel">Timeline</label>
-        <input
-          className="createEventInput"
-          type="timeline"
-          id="timeline"
-          name="eventTimeline"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventTimeline}
-        />
-        <label className="createEventLabel">Website</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="website"
-          name="eventWebsite"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventWebsite}
-        />
-        <label className="createEventLabel">Organiser</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="organiser"
-          name="eventOrganiser"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventOrganiser}
-        />
-        <label className="createEventLabel">Sponsor</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="sponsor"
-          name="eventSponsor"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventSponsor}
-        />
-        {/* <label>Verification</label>
-        <input
-          type="checkbox"
-          id="verification"
-          name="verification"
-          onChange={handleChange}
-          required={true}
-          checked
-          value={formData.eventVerification}
-        /> */}
-        <label className="createEventLabel">Dress Code</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="dressCode"
-          name="eventDressCode"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventDressCode}
-        />
-        {/* <label>Attendance Count</label>
-        <input
-          type="number"
-          id="attendanceCount"
-          name="attendanceCount"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventAttendanceCount}
-        /> */}
-        <label className="createEventLabel">Maximum Attendance Needed</label>
-        <input
-          className="createEventInput"
-          type="number"
-          id="maximumAttendanceNeeded"
-          name="eventMaximumAttendanceNeeded"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventMaximumAttendanceNeeded}
-        />
-        <label className="createEventLabel">Enquiry Number</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="enquiryNumber"
-          name="eventEnquiryPhoneNumber"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventEnquiryPhoneNumber}
-        />
-        <label className="createEventLabel">Event Coordinates</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="coordinates"
-          name="eventLocationForinteractiveMap"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventLocationForinteractiveMap}
-        />
-        <label className="createEventLabel">Event Latitude</label>
-        <input
-          className="createEventInput"
-          type="number"
-          id="latitude"
-          name="eventLatitude"
-          onChange={handleChange}
-          required={false}
-          value={formData?.eventLatitude}
-        />
-        <label className="createEventLabel">Event Longitude</label>
-        <input
-          className="createEventInput"
-          type="number"
-          id="longitude"
-          name="eventLongitude"
-          onChange={handleChange}
-          required={false}
-          value={formData?.eventLongitude}
-        />
-     
-        <label className="createEventLabel">Activities</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="activities"
-          name="eventActivities"
-          onChange={handleChange}
-          required={true}
-          value={formData.eventActivities}
-        />
+        <div>
+          <label
+            htmlFor="eventFlyer"
+            className="block text-gray-600 font-semibold"
+          >
+            Flyer
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="file"
+            id="flyer"
+            name="eventFlyer"
+            onChange={handleImageChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventDate"
+            className="block text-gray-600 font-semibold"
+          >
+            Date
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="date"
+            id="eventDate"
+            name="eventDate"
+            onChange={handleChange}
+            required
+            value={formData.eventDate}
+          />
+        </div>
+{/* 
+        <div>
+          <label
+            htmlFor="eventDetails"
+            className="block text-gray-600 font-semibold"
+          >
+            Details
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventDetails"
+            name="eventDetails"
+            onChange={handleChange}
+            required
+            value={formData.eventDetails}
+          />
+        </div> */}
+
+        <div>
+          <label
+            htmlFor="eventCategory"
+            className="block text-gray-600 font-semibold"
+          >
+            Category
+          </label>
+          <select
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            id="eventCategory"
+            name="eventCategory"
+            onChange={handleChange}
+            required
+            value={formData.eventCategory}
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="parties">Parties</option>
+            <option value="recreational">Recreational</option>
+            <option value="artsandCulture">Arts and Culture</option>
+            <option value="restaurantandlounges">Restaurant And Lounges</option>
+            <option value="concerts">Concerts</option>
+            <option value="matchmaking">MatchMaking</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventLocation"
+            className="block text-gray-600 font-semibold"
+          >
+            Location
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventLocation"
+            name="eventLocation"
+            onChange={handleChange}
+            required
+            value={formData.eventLocation}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventDescription"
+            className="block text-gray-600 font-semibold"
+          >
+            Description
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventDescription"
+            name="eventDescription"
+            onChange={handleChange}
+            required
+            value={formData.eventDescription}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventEntertainments"
+            className="block text-gray-600 font-semibold"
+          >
+            Entertainments
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventEntertainments"
+            name="eventEntertainments"
+            onChange={handleChange}
+            required
+            value={formData.eventEntertainments}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventTopic"
+            className="block text-gray-600 font-semibold"
+          >
+            Topic
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventTopic"
+            name="eventTopic"
+            onChange={handleChange}
+            required
+            value={formData.eventTopic}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventTime"
+            className="block text-gray-600 font-semibold"
+          >
+            Time
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="time"
+            id="eventTime"
+            name="eventTime"
+            onChange={handleChange}
+            required
+            value={formData.eventTime}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventGuest"
+            className="block text-gray-600 font-semibold"
+          >
+            Guests
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventGuest"
+            name="eventGuest"
+            onChange={handleChange}
+            required
+            value={formData.eventGuest}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventFee"
+            className="block text-gray-600 font-semibold"
+          >
+            Fee
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="number"
+            id="eventFee"
+            name="eventFee"
+            onChange={handleChange}
+            required
+            value={formData.eventFee}
+          />
+        </div>
+{/* 
+        <div>
+          <label
+            htmlFor="eventGenderRequirement"
+            className="block text-gray-600 font-semibold"
+          >
+            Required Gender
+          </label>
+          <select
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            id="eventGenderRequirement"
+            name="eventGenderRequirement"
+            onChange={handleChange}
+            required
+            value={formData.eventGenderRequirement}
+          >
+            <option value="" disabled>
+              Select Gender
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div> */}
+
+        {/* <div>
+          <label
+            htmlFor="eventAgeRequirement"
+            className="block text-gray-600 font-semibold"
+          >
+            Required Age
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="number"
+            id="eventAgeRequirement"
+            name="eventAgeRequirement"
+            onChange={handleChange}
+            required
+            value={formData.eventAgeRequirement}
+          />
+        </div> */}
+
+        {/* <div>
+          <label
+            htmlFor="eventTimeline"
+            className="block text-gray-600 font-semibold"
+          >
+            Timeline
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventTimeline"
+            name="eventTimeline"
+            onChange={handleChange}
+            required
+            value={formData.eventTimeline}
+          />
+        </div> */}
+
+        <div>
+          <label
+            htmlFor="eventWebsite"
+            className="block text-gray-600 font-semibold"
+          >
+            Website
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="url"
+            id="eventWebsite"
+            name="eventWebsite"
+            onChange={handleChange}
+            required
+            value={formData.eventWebsite}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventOrganiser"
+            className="block text-gray-600 font-semibold"
+          >
+            Organiser
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventOrganiser"
+            name="eventOrganiser"
+            onChange={handleChange}
+            required
+            value={formData.eventOrganiser}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventSponsor"
+            className="block text-gray-600 font-semibold"
+          >
+            Sponsor
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventSponsor"
+            name="eventSponsor"
+            onChange={handleChange}
+            required
+            value={formData.eventSponsor}
+          />
+        </div>
+
+        {/* <div>
+          <label
+            htmlFor="eventDressCode"
+            className="block text-gray-600 font-semibold"
+          >
+            Dress Code
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventDressCode"
+            name="eventDressCode"
+            onChange={handleChange}
+            required
+            value={formData.eventDressCode}
+          />
+        </div> */}
+
+        <div>
+          <label
+            htmlFor="eventMaximumAttendanceNeeded"
+            className="block text-gray-600 font-semibold"
+          >
+            Maximum Attendance Needed
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="number"
+            id="eventMaximumAttendanceNeeded"
+            name="eventMaximumAttendanceNeeded"
+            onChange={handleChange}
+            required
+            value={formData.eventMaximumAttendanceNeeded}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventEnquiryPhoneNumber"
+            className="block text-gray-600 font-semibold"
+          >
+            Enquiry Number
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventEnquiryPhoneNumber"
+            name="eventEnquiryPhoneNumber"
+            onChange={handleChange}
+            required
+            value={formData?.eventEnquiryPhoneNumber}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventLocationForinteractiveMap"
+            className="block text-gray-600 font-semibold"
+          >
+            Event Coordinates
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventLocationForinteractiveMap"
+            name="eventLocationForinteractiveMap"
+            onChange={handleChange}
+            // required
+            value={formData?.eventLocationForinteractiveMap}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventLatitude"
+            className="block text-gray-600 font-semibold"
+          >
+            Event Latitude
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="number"
+            id="eventLatitude"
+            name="eventLatitude"
+            onChange={handleChange}
+            value={formData.eventLatitude}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventLongitude"
+            className="block text-gray-600 font-semibold"
+          >
+            Event Longitude
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="number"
+            id="eventLongitude"
+            name="eventLongitude"
+            onChange={handleChange}
+            value={formData.eventLongitude}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="eventActivities"
+            className="block text-gray-600 font-semibold"
+          >
+            Activities
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="eventActivities"
+            name="eventActivities"
+            onChange={handleChange}
+            required
+            value={formData.eventActivities}
+          />
+        </div>
 
         <div className="w-full flex items-center justify-center">
           <Button

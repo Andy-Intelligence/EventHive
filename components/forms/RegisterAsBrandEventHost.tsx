@@ -1,16 +1,14 @@
-"use client"
-import React, { useState } from "react";
-import Button from "../layoutComponents/Button";
-import { useRouter } from "next/navigation";
+"use client";
 
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Button from "../layoutComponents/Button";
 
 interface UserDetails {
   user: any;
 }
 
-
-
-const RegisterAsBrandEventHost = ({user}:UserDetails) => {
+const RegisterAsBrandEventHost = ({ user }: UserDetails) => {
   const router = useRouter();
 
   const brandHostDefaultData = {
@@ -20,8 +18,6 @@ const RegisterAsBrandEventHost = ({user}:UserDetails) => {
     bankName: "",
     accountName: "",
     userId: user?._id,
-
-    // password: "",
   };
 
   const [formData, setFormData] = useState(brandHostDefaultData);
@@ -33,17 +29,15 @@ const RegisterAsBrandEventHost = ({user}:UserDetails) => {
 
     setFormData((prev) => ({
       ...prev,
-      
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
     try {
       const res = await fetch(
-        `https://event-hive-liart.vercel.app/api/brand-host-event`,
+        "https://event-hive-liart.vercel.app/api/brand-host-event",
         {
           method: "POST",
           body: JSON.stringify({ formData }),
@@ -64,86 +58,115 @@ const RegisterAsBrandEventHost = ({user}:UserDetails) => {
   };
 
   return (
-    <div className="createForm font-sans flex items-center justify-center w-full p-5 ">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
-        <div className="w-full flex items-center justify-center">
-          <h1 className="font-extrabold font-sans text-3xl mb-4">
-            Register as EventHost
-          </h1>
+    <div className="flex items-center justify-center w-full p-10 bg-gray-100 min-h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md space-y-6"
+      >
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          Register as Event Host
+        </h1>
+
+        <div>
+          <label
+            htmlFor="businessName"
+            className="block text-gray-600 font-semibold"
+          >
+            Business Name
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="businessName"
+            name="businessName"
+            onChange={handleChange}
+            required
+            value={formData.businessName}
+          />
         </div>
 
-        <label className="createEventLabel">Business Name</label>
-        <input
-          className="createEventInput"
-          type="text"
-          placeholder=""
-          id="businessName"
-          name="businessName"
-          onChange={handleChange}
-          required={true}
-          value={formData.businessName}
-        />
+        <div>
+          <label
+            htmlFor="companyEmail"
+            className="block text-gray-600 font-semibold"
+          >
+            Company Email
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="email"
+            id="companyEmail"
+            name="companyEmail"
+            onChange={handleChange}
+            required
+            value={formData.companyEmail}
+          />
+        </div>
 
-        <label className="createEventLabel">Company Email</label>
-        <input
-          className="createEventInput"
-          type="email"
-          id="companyEmail"
-          name="companyEmail"
-          onChange={handleChange}
-          required={true}
-          value={formData.companyEmail}
-        />
-        <label className="createEventLabel">Account Number</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="accountNumber"
-          name="accountNumber"
-          onChange={handleChange}
-          required={true}
-          value={formData.accountNumber}
-        />
-        <label className="createEventLabel">Bank Name</label>
-        <select
-          className="createEventInput"
-          id="bankName"
-          name="bankName"
-          onChange={handleChange}
-          required={true}
-          value={formData.bankName}
-        >
-          <option value={"parties"}>Parties</option>
-          <option value={"recreational"}>Recreational</option>
-          <option value={"artAndCulture"}>Arts and Culture</option>
-          <option value={"restaurantAndLounges"}>Restaurant And Lounges</option>
-          <option value={"concerts"}>Concerts</option>
-          <option value={"matchMaking"}>MatchMaking</option>
-        </select>
-        <label className="createEventLabel">Account Name</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="accountName"
-          name="accountName"
-          onChange={handleChange}
-          required={true}
-          value={formData.accountName}
-        />
-        {/* <label className="createEventLabel">Password</label>
-        <input
-          className="createEventInput"
-          type="text"
-          id="password"
-          name="password"
-          onChange={handleChange}
-          required={true}
-          value={formData.password}
-        /> */}
+        <div>
+          <label
+            htmlFor="accountNumber"
+            className="block text-gray-600 font-semibold"
+          >
+            Account Number
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="accountNumber"
+            name="accountNumber"
+            onChange={handleChange}
+            required
+            value={formData.accountNumber}
+          />
+        </div>
 
-        <div className="w-full flex items-center justify-center">
+        <div>
+          <label
+            htmlFor="bankName"
+            className="block text-gray-600 font-semibold"
+          >
+            Bank Name
+          </label>
+          <select
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            id="bankName"
+            name="bankName"
+            onChange={handleChange}
+            required
+            value={formData.bankName}
+          >
+            <option value="" disabled>
+              Select Bank
+            </option>
+            <option value="bank1">Bank 1</option>
+            <option value="bank2">Bank 2</option>
+            <option value="bank3">Bank 3</option>
+            <option value="bank4">Bank 4</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="accountName"
+            className="block text-gray-600 font-semibold"
+          >
+            Account Name
+          </label>
+          <input
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
+            type="text"
+            id="accountName"
+            name="accountName"
+            onChange={handleChange}
+            required
+            value={formData.accountName}
+          />
+        </div>
+
+        <div className="flex justify-center">
           <Button
-            color="black my-5"
+            color="black"
             text="Continue"
             onSubmit={(e) => handleSubmit}
           />
