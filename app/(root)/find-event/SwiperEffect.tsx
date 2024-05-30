@@ -21,6 +21,7 @@ import {
   formatAttendanceNumber,
 } from "@/utils/helpingFunctions/functions";
 import { IoLocationSharp } from "react-icons/io5";
+import Carousel from "@/components/Carousel";
 
 interface Event {
   id: string;
@@ -153,6 +154,10 @@ export default function SwiperEffect({
           </SwiperSlide>
         ))}
       </Swiper>
+      {/* <Carousel/> */}
     </div>
   );
 }
+
+
+ 

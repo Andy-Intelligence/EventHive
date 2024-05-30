@@ -25,6 +25,7 @@ import TrendingEvent from "@/components/cards/TrendingEvent";
 import { formatTrendingEventDate } from "@/utils/helpingFunctions/functions";
 import OffbeatEvent from "@/components/cards/OffbeatEvent";
 import SwipeIndicator from "@/components/SwipeIndicator";
+import Carousel from "@/components/Carousel";
 
 // Utility functions for fetching events
 const getEvents = async () => {
@@ -118,8 +119,8 @@ export default async function Page({
         <div className="w-full flex flex-col items-center justify-center p-1">
           <div className="text-gray-800 text-lg">Current Location</div>
           <div>
-          <UserPosition />
-            </div>
+            <UserPosition />
+          </div>
         </div>
         <SearchBar />
         <div className="event-filters">
@@ -139,12 +140,15 @@ export default async function Page({
             </div>
           </section>
         </div>
-        <section className="relative h-full">
+        {/* <section className="relative h-full">
           <SwiperEffect
             query={query}
             currentPage={currentPage}
             events={events}
           />
+        </section> */}
+        <section className=" h-full">
+          <Carousel query={query} currentPage={currentPage} events={events} />
         </section>
         <section className="w-full flex flex-col items-center justify-center my-4 ">
           <div className="flex w-full items-center justify-between p-4 font-bold text-black">
