@@ -131,7 +131,7 @@ export default async function Page({
                   Events
                 </button>
               </Link>
-              <SwipeIndicator />
+              {/* <SwipeIndicator /> */}
               <Link href={"/deals"}>
                 <button className="px-4 py-2 bg-yellow-400 text-black rounded-lg focus:outline-none hover:bg-yellow-500">
                   Deals
@@ -241,7 +241,7 @@ export default async function Page({
               },
             ].map((event, index) => (
               <Link key={index} href={event.href}>
-                <div className="relative border border-black overflow-hidden rounded-lg shadow-lg transform transition duration-300 hover:scale-105">
+                <div className="relative   shadow-[rgba(34,34,34,0.1)] border-black overflow-hidden rounded-lg shadow-lg transform transition duration-300 hover:scale-105">
                   <Image
                     src={event.src}
                     alt={`${event.label}-img`}
