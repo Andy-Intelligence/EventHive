@@ -15,7 +15,7 @@ interface TrendingEventProps{
 
 function TrendingEvent({img,eventTitle,eventDate,eventLocation}:TrendingEventProps) {
   return (
-    <div className="unFocusNews flex items-start justify-between  h-auto w-[90dvw] md:w-[580px] p-4 space-x-2 shadow-lg  shadow-[rgba(34,34,34,0.1)] bg-white rounded-lg">
+    <div className="unFocusNews flex items-start justify-between  h-auto w-[90dvw] md:w-[580px] p-4 space-x-2 shadow-md  shadow-[rgba(34,34,34,0.1)] bg-white rounded-lg">
       <div className="h-auto ">
         <Image
           height={60}

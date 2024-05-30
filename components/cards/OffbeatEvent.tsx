@@ -13,7 +13,7 @@ interface OffbeatEventProps{
 
 function OffbeatEvent({img,eventTitle,eventDate,eventLocation,eventDescription}:OffbeatEventProps) {
   return (
-    <div className="focusNews h-auto w-[90dvw]  md:w-[580px] flex flex-col shadow-lg  shadow-[rgba(34,34,34,0.1)] p-4 space-y-3 transition bg-white rounded-lg">
+    <div className="focusNews h-auto w-[90dvw]  md:w-[580px] flex flex-col shadow-md  shadow-[rgba(34,34,34,0.1)] p-4 space-y-3 transition bg-white rounded-lg">
       <Image
         className="h-auto w-full"
         src={img}

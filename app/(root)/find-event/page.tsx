@@ -26,6 +26,7 @@ import { formatTrendingEventDate } from "@/utils/helpingFunctions/functions";
 import OffbeatEvent from "@/components/cards/OffbeatEvent";
 import SwipeIndicator from "@/components/SwipeIndicator";
 import Carousel from "@/components/Carousel";
+import Marquee from "../../../components/Marquee";
 
 // Utility functions for fetching events
 const getEvents = async () => {
@@ -138,6 +139,7 @@ export default async function Page({
                 </button>
               </Link>
             </div>
+          <Marquee/>
           </section>
         </div>
         {/* <section className="relative h-full">

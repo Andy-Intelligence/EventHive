@@ -348,3 +348,26 @@
 }
 
   /* ///////////////////////comment section////////////////////////////////// */
+
+
+
+
+
+
+  /* /////////////////////// Marquee ////////////////////////////////// */
+
+
+  /* styles/globals.css */
+.marquee-text {
+  display: inline-block;
+  will-change: transform;
+  white-space: nowrap;
+  animation: marquee-animation linear infinite;
+}
+
+@keyframes marquee-animation {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+  /* /////////////////////// Marquee ////////////////////////////////// */

@@ -307,7 +307,7 @@ const Carousel = ({
               key={index}
               className={`rounded-lg relative flex-shrink-0 w-4/5 md:w-2/3 mx-2 transform transition-transform duration-500 ease-in-out ${
                 index === currentIndex
-                  ? "scale-105 bg-white z-10 shadow-lg  shadow-[rgba(34,34,34,0.1)]"
+                  ? "scale-105 bg-white z-10 shadow-md  shadow-[rgba(34,34,34,0.1)]"
                   : "scale-90 bg-white"
               }`}
               style={{
