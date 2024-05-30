@@ -122,6 +122,8 @@ const Carousel = ({
     onSwipedLeft: () => nextSlide(),
     onSwipedRight: () => prevSlide(),
     // preventDefaultTouchmoveEvent: true,
+    swipeDuration:100,
+    delta:0,
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
@@ -148,6 +150,137 @@ const Carousel = ({
   };
 
   return (
+    // <div
+    //   className="relative w-full max-w-4xl mx-auto"
+    //   {...handlers}
+    //   ref={containerRef}
+    //   onMouseDown={handleMouseDown}
+    //   onTouchStart={handleMouseDown}
+    //   onMouseMove={handleMouseMove}
+    //   onTouchMove={handleMouseMove}
+    //   onMouseUp={handleMouseUp}
+    //   onTouchEnd={handleMouseUp}
+    //   onMouseLeave={() => setDragging(false)}
+    // >
+    //   <div className="overflow-hidden relative">
+    //     <div
+    //       className="flex transition-transform duration-500 ease-in-out"
+    //       style={{
+    //         transform: `translateX(calc(-${
+    //           currentIndex * 80
+    //         }% + ${dragOffset}px))`,
+    //       }}
+    //     >
+    //       {/* {images.map((image, index) => ( */}
+    //       {events?.map((event: any, index: any) => (
+    //         <div
+    //           key={index}
+    //           className={`relative flex-shrink-0 w-4/5 md:w-2/3 h-64 mx-2 transform transition-transform duration-500 ease-in-out ${
+    //             index === currentIndex
+    //               ? "scale-105 bg-blue-200 z-10"
+    //               : "scale-90 bg-gray-200"
+    //           }`}
+    //           style={{
+    //             marginLeft: index === 0 ? "10%" : "0",
+    //             marginRight: index === events.length - 1 ? "10%" : "0",
+    //           }}
+    //         >
+    //           <img
+    //             onClick={(e) => gotoEventProfile(e, event?._id)}
+    //             src={event?.eventFlyer?.secure_url}
+    //             alt={`Slide ${index}`}
+    //             className="w-full h-full object-cover object-top"
+    //           />
+    //           <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
+    //             <div className="text-xl font-bold text-white">
+    //               {getDayFromDate(event?.eventDate)}
+    //             </div>
+    //             <div>{convertToMonth(event?.eventDate)}</div>
+    //           </div>
+    //           <h2 className="font-bold text-3xl">{event.eventTitle}</h2>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   </div>
+    //   <button
+    //     onClick={prevSlide}
+    //     className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+    //   >
+    //     ‹
+    //   </button>
+    //   <button
+    //     onClick={nextSlide}
+    //     className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+    //   >
+    //     ›
+    //   </button>
+    // </div>
+    // <div
+    //   className="relative w-full max-w-4xl mx-auto"
+    //   {...handlers}
+    //   ref={containerRef}
+    //   onMouseDown={handleMouseDown}
+    //   onTouchStart={handleMouseDown}
+    //   onMouseMove={handleMouseMove}
+    //   onTouchMove={handleMouseMove}
+    //   onMouseUp={handleMouseUp}
+    //   onTouchEnd={handleMouseUp}
+    //   onMouseLeave={() => setDragging(false)}
+    // >
+    //   <div className="overflow-hidden relative">
+    //     <div
+    //       className="flex transition-transform duration-500 ease-in-out"
+    //       style={{
+    //         transform: `translateX(calc(-${
+    //           currentIndex * 80
+    //         }% + ${dragOffset}px))`,
+    //       }}
+    //     >
+    //       {events?.map((event: any, index: any) => (
+    //         <div
+    //           key={index}
+    //           className={`relative flex-shrink-0 w-4/5 md:w-2/3 h-64 mx-2 transform transition-transform duration-500 ease-in-out ${
+    //             index === currentIndex
+    //               ? "scale-105 bg-blue-200 z-10"
+    //               : "scale-90 bg-gray-200"
+    //           }`}
+    //           style={{
+    //             marginLeft: index === 0 ? "10%" : "0",
+    //             marginRight: index === events.length - 1 ? "10%" : "0",
+    //           }}
+    //         >
+    //           <img
+    //             onClick={(e) => gotoEventProfile(e, event?._id)}
+    //             src={event?.eventFlyer?.secure_url}
+    //             alt={`Slide ${index}`}
+    //             className="w-full h-full object-cover object-top"
+    //           />
+    //           <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-2 text-center">
+    //             <h2 className="font-bold text-xl">{event.eventTitle}</h2>
+    //           </div>
+    //           <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
+    //             <div className="text-xl font-bold text-white">
+    //               {getDayFromDate(event?.eventDate)}
+    //             </div>
+    //             <div>{convertToMonth(event?.eventDate)}</div>
+    //           </div>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   </div>
+    //   <button
+    //     onClick={prevSlide}
+    //     className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+    //   >
+    //     ‹
+    //   </button>
+    //   <button
+    //     onClick={nextSlide}
+    //     className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+    //   >
+    //     ›
+    //   </button>
+    // </div>
     <div
       className="relative w-full max-w-4xl mx-auto"
       {...handlers}
@@ -169,43 +302,47 @@ const Carousel = ({
             }% + ${dragOffset}px))`,
           }}
         >
-          {/* {images.map((image, index) => ( */}
           {events?.map((event: any, index: any) => (
             <div
               key={index}
-              className={`relative flex-shrink-0 w-4/5 md:w-2/3 h-64 mx-2 transform transition-transform duration-500 ease-in-out ${
+              className={`relative flex-shrink-0 w-4/5 md:w-2/3 mx-2 transform transition-transform duration-500 ease-in-out ${
                 index === currentIndex
                   ? "scale-105 bg-blue-200 z-10"
                   : "scale-90 bg-gray-200"
               }`}
               style={{
                 marginLeft: index === 0 ? "10%" : "0",
-                marginRight:
-                  index === events.length - 1
-                    ? "10%"
-                    : "0",
+                marginRight: index === events.length - 1 ? "10%" : "0",
               }}
-              >
+            >
               <img
                 onClick={(e) => gotoEventProfile(e, event?._id)}
                 src={event?.eventFlyer?.secure_url}
                 alt={`Slide ${index}`}
-                className="w-full h-full object-cover object-top"
+                className="w-full h-64 object-cover object-top"
               />
-        
+              <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
+                <div className="text-xl font-bold text-white">
+                  {getDayFromDate(event?.eventDate)}
+                </div>
+                <div>{convertToMonth(event?.eventDate)}</div>
+              </div>
+              <h2 className="text-center mt-2 font-bold text-xl mb-4">
+                {event.eventTitle}
+              </h2>
             </div>
           ))}
         </div>
       </div>
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
       >
         ‹
       </button>
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
       >
         ›
       </button>
