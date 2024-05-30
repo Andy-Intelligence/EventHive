@@ -282,7 +282,7 @@ const Carousel = ({
     //   </button>
     // </div>
     <div
-      className="relative w-full max-w-4xl mx-auto"
+      className="relative w-full max-w-4xl mx-auto "
       {...handlers}
       ref={containerRef}
       onMouseDown={handleMouseDown}
@@ -293,9 +293,9 @@ const Carousel = ({
       onTouchEnd={handleMouseUp}
       onMouseLeave={() => setDragging(false)}
     >
-      <div className="overflow-hidden relative">
+      <div className="overflow-hidden relative py-5 ">
         <div
-          className="flex transition-transform duration-500 ease-in-out"
+          className="flex transition-transform duration-500 ease-in-out  "
           style={{
             transform: `translateX(calc(-${
               currentIndex * 80
@@ -305,10 +305,10 @@ const Carousel = ({
           {events?.map((event: any, index: any) => (
             <div
               key={index}
-              className={`relative flex-shrink-0 w-4/5 md:w-2/3 mx-2 transform transition-transform duration-500 ease-in-out ${
+              className={`rounded-lg relative flex-shrink-0 w-4/5 md:w-2/3 mx-2 transform transition-transform duration-500 ease-in-out ${
                 index === currentIndex
-                  ? "scale-105 bg-blue-200 z-10"
-                  : "scale-90 bg-gray-200"
+                  ? "scale-105 bg-white z-10 shadow-lg  shadow-[rgba(34,34,34,0.1)]"
+                  : "scale-90 bg-white"
               }`}
               style={{
                 marginLeft: index === 0 ? "10%" : "0",
@@ -319,22 +319,26 @@ const Carousel = ({
                 onClick={(e) => gotoEventProfile(e, event?._id)}
                 src={event?.eventFlyer?.secure_url}
                 alt={`Slide ${index}`}
-                className="w-full h-64 object-cover object-top"
+                className="w-full h-64 object-cover object-top rounded-t-lg"
               />
-              <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
-                <div className="text-xl font-bold text-white">
+              <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-sm text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
+                <div className=" font-bold text-white">
                   {getDayFromDate(event?.eventDate)}
                 </div>
                 <div>{convertToMonth(event?.eventDate)}</div>
               </div>
-              <h2 className="text-center mt-2 font-bold text-xl mb-4">
-                {event.eventTitle}
-              </h2>
+              {index === currentIndex ? (
+                <h2 className="text-center mt-2 font-bold text-xl mb-4">
+                  {event.eventTitle}
+                </h2>
+              ) : (
+                <div className="hidden"></div>
+              )}
             </div>
           ))}
         </div>
       </div>
-      <button
+      {/* <button
         onClick={prevSlide}
         className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
       >
@@ -345,7 +349,7 @@ const Carousel = ({
         className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
       >
         ›
-      </button>
+      </button> */}
     </div>
   );
 };
