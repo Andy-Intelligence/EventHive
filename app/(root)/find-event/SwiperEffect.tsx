@@ -166,7 +166,7 @@ export default function SwiperEffect({
                     <div>{convertToMonth(event?.eventDate)}</div>
                   </div>
                 </div>
-                <div className="event-description flex flex-col items-center justify-center mb-2">
+                <div className="event-description flex flex-col items-start justify-start mb-2">
                   <h2 className="font-extrabold text-3xl">
                     {event.eventTitle}
                   </h2>
@@ -176,7 +176,7 @@ export default function SwiperEffect({
                       {convertToTime(event?.eventDate)}
                     </span>
                   </div>
-                  <div className="w-full flex items-start">
+                  {/* <div className="w-full flex items-start">
                     <div className="flex items-center justify-center ">
                       <div className="flex items-center justify-center ">
                         {event?.orders
@@ -202,7 +202,7 @@ export default function SwiperEffect({
                         {formatAttendanceNumber(event?.orders?.length)} Going
                       </span>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex items-center justify-start font-bold gap-1 text-sm w-full text-black py-2">
                     <div className="flex items-center justify-center">

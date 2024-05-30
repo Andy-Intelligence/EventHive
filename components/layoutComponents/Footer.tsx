@@ -5,14 +5,14 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className='bg-black flex flex-col items-center justify-between p-4 font-bold text-white space-y-10'>
-        <div className='flex flex-row items-center justify-between w-full px-2'>
+    <footer className='bg-black flex flex-col items-start justify-between p-4 font-normal text-white space-y-10'>
+        <div className='flex flex-row items-center justify-between w-full px-2 h-full'>
             <div className='flex flex-col space-y-2'>
                 <p>What's EventHive</p>
                 <p>Help</p>
                 <p>FAQ</p>
             </div>
-            <div className='flex flex-col space-y-4'>
+            <div className='flex flex-col space-y-2 items-start justify-start h-full'>
                 <Link href={'/host-event'}>Host Event</Link>
                 <p>Parties</p>
                 <Link href={'/create-event'}>Create Event</Link>

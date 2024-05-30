@@ -98,8 +98,8 @@ export default async function Page({
                   className="rounded-full"
                   src={session?.user?.image as string}
                   alt="profile-photo"
-                  height={50}
-                  width={50}
+                  height={40}
+                  width={40}
                 />
               </Link>
             ) : (
@@ -108,8 +108,8 @@ export default async function Page({
                   className="rounded-full"
                   src={Avatar?.src}
                   alt="profile-photo"
-                  height={50}
-                  width={50}
+                  height={40}
+                  width={40}
                 />
               </Link>
             )}
@@ -202,7 +202,7 @@ export default async function Page({
               <div className="text-blue-500 hover:text-blue-700">show all</div>
             </Link>
           </div>
-          <div className="discover-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-white font-bold">
+          <div className="discover-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-white font-normal">
             {[
               { href: "/discover/parties", src: Partys?.src, label: "Parties" },
               {
