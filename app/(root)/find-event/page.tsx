@@ -125,7 +125,7 @@ export default async function Page({
         </div>
         <SearchBar />
         <div className="event-filters">
-          <section>
+          <section className="">
             <div className="flex items-center justify-between p-4">
               <Link href={"/find-event"}>
                 <button className="px-4 py-2 mr-4 bg-black text-white rounded-lg focus:outline-none hover:bg-gray-800">
@@ -139,7 +139,10 @@ export default async function Page({
                 </button>
               </Link>
             </div>
+            <div className="px-4">
+
           <Marquee/>
+            </div>
           </section>
         </div>
         {/* <section className="relative h-full">
