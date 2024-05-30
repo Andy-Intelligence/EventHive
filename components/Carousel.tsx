@@ -121,7 +121,8 @@ const Carousel = ({
   const handlers = useSwipeable({
     onSwipedLeft: () => nextSlide(),
     onSwipedRight: () => prevSlide(),
-    preventDefaultTouchmoveEvent: true,
+    // preventDefaultTouchmoveEvent: true,
+    preventScrollOnSwipe: true,
     trackMouse: true,
   });
 
