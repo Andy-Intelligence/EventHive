@@ -1,20 +1,38 @@
-"use client"
-import Script from "next/script";
-import React from "react";
+"use client";
 
-type AdsenseTypes = {
-  pId: string;
+import React, { useEffect } from "react";
+
+type AdBannerTypes = {
+  dataAdSlot: string;
+  dataAdFormat: string;
+  dataFullWidthResponsive: boolean;
 };
 
-const AdSense = ({ pId }: AdsenseTypes) => {
+const AdSense = ({
+  dataAdSlot,
+  dataAdFormat,
+  dataFullWidthResponsive,
+}: AdBannerTypes) => {
+  useEffect(() => {
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
+        {}
+      );
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }, []);
+
   return (
-    <Script
-      async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${pId}`}
-      crossOrigin="anonymous"
-      strategy="afterInteractive"
-    />
+    <ins
+      className="adsbygoogle"
+      style={{ display: "block" }}
+      data-ad-client="ca-pub-4386496689063821"
+      data-ad-slot={dataAdSlot}
+      data-ad-format={dataAdFormat}
+      data-full-width-responsive={dataFullWidthResponsive.toString()}
+    ></ins>
   );
 };
-{/* */}
+
 export default AdSense;
