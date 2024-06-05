@@ -1,36 +1,20 @@
-"use client";
-import React, { useEffect } from "react";
+"use client"
+import Script from "next/script";
+import React from "react";
 
-// Extend the global Window interface to include adsbygoogle
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
+type AdsenseTypes = {
+  pId: string;
+};
 
-interface AdSenseProps {
-  client: string;
-  slot: string;
-  style?: React.CSSProperties;
-  layout?: string;
-}
-
-const AdSense: React.FC<AdSenseProps> = ({ client, slot, style, layout }) => {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }
-  }, []);
-
+const AdSense = ({ pId }: AdsenseTypes) => {
   return (
-    <ins
-      className="adsbygoogle"
-      style={style}
-      data-ad-client={client}
-      data-ad-slot={slot}
-      data-ad-layout={layout}
+    <Script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${pId}`}
+      crossOrigin="anonymous"
+      strategy="afterInteractive"
     />
   );
 };
-
+{/* */}
 export default AdSense;

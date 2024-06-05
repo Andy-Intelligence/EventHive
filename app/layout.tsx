@@ -4,6 +4,7 @@ import './globals.css'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/providers/SessionProvider'
 import { MapProvider } from '@/utils/providers/MapProvider'
+import AdSense from '@/components/AdSense'
 // import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,10 +24,15 @@ export default async function RootLayout({
   const session = await getServerSession()
   return (
     <html lang="en">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4386496689063821"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className={inter.className}>
-        <SessionProvider>
-          {children}
-        </SessionProvider>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

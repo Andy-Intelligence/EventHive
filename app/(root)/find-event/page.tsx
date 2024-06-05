@@ -156,11 +156,11 @@ export default async function Page({
           <Carousel query={query} currentPage={currentPage} events={events} />
         </section>
         <section className=" w-full">
-          <AdSense
+          {/* <AdSense
             client="ca-pub-4386496689063821" // Replace with your AdSense client ID
             slot="XXXXXXXXXX" // Replace with your AdSense ad slot ID
             style={{ display: "block", width: "300px", height: "250px" }}
-          />
+          /> */}
         </section>
         <section className="w-full flex flex-col items-center justify-center my-4 ">
           <div className="flex w-full items-center justify-between p-4 font-bold text-black">
