@@ -27,6 +27,7 @@ import OffbeatEvent from "@/components/cards/OffbeatEvent";
 import SwipeIndicator from "@/components/SwipeIndicator";
 import Carousel from "@/components/Carousel";
 import Marquee from "../../../components/Marquee";
+import AdSense from "@/components/AdSense";
 
 // Utility functions for fetching events
 const getEvents = async () => {
@@ -140,8 +141,7 @@ export default async function Page({
               </Link>
             </div>
             <div className="px-4">
-
-          <Marquee/>
+              <Marquee />
             </div>
           </section>
         </div>
@@ -154,6 +154,13 @@ export default async function Page({
         </section> */}
         <section className=" h-full">
           <Carousel query={query} currentPage={currentPage} events={events} />
+        </section>
+        <section className=" w-full">
+          <AdSense
+            client="ca-pub-4386496689063821" // Replace with your AdSense client ID
+            slot="XXXXXXXXXX" // Replace with your AdSense ad slot ID
+            style={{ display: "block", width: "300px", height: "250px" }}
+          />
         </section>
         <section className="w-full flex flex-col items-center justify-center my-4 ">
           <div className="flex w-full items-center justify-between p-4 font-bold text-black">
