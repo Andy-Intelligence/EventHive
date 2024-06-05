@@ -32,6 +32,7 @@ const AdSense = ({
       data-ad-format={dataAdFormat}
       data-full-width-responsive={dataFullWidthResponsive.toString()}
     ></ins>
+    
   );
 };
 

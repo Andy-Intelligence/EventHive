@@ -159,7 +159,7 @@ export default async function Page({
           <AdSense
             dataAdFormat="auto"
             dataFullWidthResponsive={true}
-            dataAdSlot="4284247248"
+            dataAdSlot="5778412345"
           />
         </section>
         <section className="w-full flex flex-col items-center justify-center my-4 ">
