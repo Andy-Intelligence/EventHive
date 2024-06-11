@@ -24,13 +24,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
+        {/* <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.NEXT_PUBLIC_GOOGLE_ADS}`}
           crossOrigin="anonymous"
-        ></script>
+        ></script> */}
       </head>
       <body className={inter.className}>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4386496689063821"
+          crossOrigin="anonymous"
+        ></script>
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
