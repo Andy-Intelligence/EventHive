@@ -87,6 +87,11 @@ export default async function Page({
 
   return (
     <div>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4386496689063821"
+        crossOrigin="anonymous"
+      ></script>
       <main className="w-full overflow-x-clip">
         <nav className="flex flex-row bg-black p-4 container mx-auto items-center justify-between">
           <Link href="/gg">

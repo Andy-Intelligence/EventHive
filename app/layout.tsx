@@ -3,8 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/providers/SessionProvider'
-import { MapProvider } from '@/utils/providers/MapProvider'
-import AdSense from '@/components/AdSense'
+
 // import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
