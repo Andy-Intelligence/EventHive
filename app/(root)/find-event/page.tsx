@@ -90,7 +90,7 @@ export default async function Page({
    
       <main className="w-full overflow-x-clip">
         <nav className="flex flex-row bg-black p-4 container mx-auto items-center justify-between">
-          <Link href="/gg">
+          <Link href="/find-event">
             <div className="text-white text-2xl font-bold hover:text-yellow-400">
               <span className="text-yellow-400">Event</span>Hive
             </div>
@@ -135,11 +135,11 @@ export default async function Page({
                 </button>
               </Link>
               {/* <SwipeIndicator /> */}
-              <Link href={"/deals"}>
+              {/* <Link href={"/deals"}> */}
                 <button className="px-4 py-2 bg-yellow-400 text-black rounded-lg focus:outline-none hover:bg-yellow-500">
                   Deals
                 </button>
-              </Link>
+              {/* </Link> */}
             </div>
             {/* <div className="px-4">
               <Marquee />
@@ -166,9 +166,9 @@ export default async function Page({
         <section className="w-full flex flex-col items-center justify-center my-4 ">
           <div className="flex w-full items-center justify-between p-4 font-bold text-black">
             <p>Trending Events</p>
-            <Link href={"/show-all"}>
+            {/* <Link href={"/show-all"}> */}
               <div className="text-blue-500 hover:text-blue-700">show all</div>
-            </Link>
+            {/* </Link> */}
           </div>
           <div className="w-full flex flex-col items-center justify-center gap-2">
             {events
