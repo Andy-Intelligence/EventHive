@@ -145,9 +145,9 @@ export default async function Page({
                 </button>
               </Link>
             </div>
-            <div className="px-4">
+            {/* <div className="px-4">
               <Marquee />
-            </div>
+            </div> */}
           </section>
         </div>
         {/* <section className="relative h-full">
