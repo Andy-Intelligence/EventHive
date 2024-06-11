@@ -4,6 +4,7 @@ import './globals.css'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/providers/SessionProvider'
 
+
 // import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
