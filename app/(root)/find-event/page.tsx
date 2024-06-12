@@ -156,13 +156,13 @@ export default async function Page({
         <section className=" h-full">
           <Carousel query={query} currentPage={currentPage} events={events} />
         </section>
-        <section className=" w-full">
+        {/* <section className=" w-full">
           <AdSense
             dataAdFormat="auto"
             dataFullWidthResponsive={true}
             dataAdSlot="5778412345"
           />
-        </section>
+        </section> */}
         <section className="w-full flex flex-col items-center justify-center my-4 ">
           <div className="flex w-full items-center justify-between p-4 font-bold text-black">
             <p>Trending Events</p>
