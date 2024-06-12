@@ -196,13 +196,7 @@ export default function Page({ params }: { params: { id: string } }) {
     <div className="p-4 flex flex-col space-y-8 font-poppins items-center justify-center bg-gray-100 min-h-screen">
       {/* Event Image Section */}
       {/* {event?.eventDate} */}
-      <head>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.NEXT_PUBLIC_GOOGLE_ADS}`}
-          crossOrigin="anonymous"
-        ></script>
-      </head>
+    
       <div>
         {!showEventStarted ? (
           <div className="w-full countdown-container flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg">
