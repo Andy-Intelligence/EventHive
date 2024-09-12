@@ -8,7 +8,7 @@ interface ButtonProp {
 }
 const Button = ({text,color,onClick,onSubmit}:ButtonProp) => {
   return (
-    <button onSubmit={onSubmit} onClick={onClick} className={`border border-black bg-${color} w-[10rem] h-[4rem] text-white p-2 font-bold rounded-[30px]`}>
+    <button onSubmit={onSubmit} onClick={onClick} className={`border border-black bg-${color} w-[10rem] h-[4rem] text-black p-2 font-bold rounded-[30px]`}>
         {text}
     </button>
   )

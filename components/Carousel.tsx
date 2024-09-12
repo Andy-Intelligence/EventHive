@@ -1,71 +1,56 @@
-"use client"
-import { useState,useRef } from "react";
-import Image from "next/image";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useSwipeable } from "react-swipeable";
-import BeachVibe from "@/public/assets/beachvibe.jpg";
-import * as React from "react";
-import { useEffect } from "react";
 
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-import { CldImage } from "next-cloudinary";
+import { useSwipeable } from "react-swipeable";
+import { IoLocationSharp } from "react-icons/io5";
+import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import {
   getUserLocation,
-  UserLocation,
   watchUserLocation,
   clearWatch,
   calculateDistance,
   convertToMonth,
   getDayFromDate,
   convertToTime,
-  replaceHttpWithHttps,
-  formatAttendanceNumber,
 } from "@/utils/helpingFunctions/functions";
-import { IoLocationSharp } from "react-icons/io5";
 
-const images = [
-  BeachVibe.src,
-  BeachVibe.src,
-  BeachVibe.src,
-  BeachVibe.src,
-  BeachVibe.src,
-
-  // Add more image paths here
-];
-
+// Define the Event interface
 interface Event {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
+  _id: string;
+  eventTitle: string;
+  eventDate: string;
+  eventTime: string;
+  eventLocation: string;
+  eventFlyer?: {
+    secure_url: string;
+  };
+  eventLatitude: number;
+  eventLongitude: number;
 }
 
-interface EventProp {
-  events?: any[]; // Specify the type of the 'events' array
+// Define the CarouselProps interface for the component's props
+interface CarouselProps {
+  events: Event[];
 }
 
-const Carousel = ({
-  query,
-  currentPage,
-  events,
-}: {
-  query?: string;
-  currentPage?: number;
-  events: any;
-}) => {
+const Carousel: React.FC<CarouselProps> = ({ events }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
+  const [userLocation, setUserLocation] = useState<any | null>(null);
+  const [filteredEventsLocation, setFilteredEventsLocation] = useState<Event[]>(
+    []
+  );
 
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
-  const [filteredEventsLocation, setFilteredEventsLocation] = useState<any>([]);
 
+  // Watch for user location
   useEffect(() => {
-    const successCallback = (location: UserLocation) => {
+    const successCallback = (location: any) => {
       setUserLocation(location);
     };
 
@@ -80,17 +65,18 @@ const Carousel = ({
     };
   }, []);
 
+  // Filter events based on location
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const filteredEvents = events?.filter((event: any) => {
+        const filteredEvents = events?.filter((event) => {
           const distance = calculateDistance(
             userLocation?.latitude || 0,
             userLocation?.longitude || 0,
             event?.eventLatitude,
             event?.eventLongitude
           );
-          return distance <= 100; // Filter events within 100 km
+          return distance <= 100;
         });
         setFilteredEventsLocation(filteredEvents);
       } catch (error) {
@@ -101,41 +87,45 @@ const Carousel = ({
     if (userLocation) {
       fetchEvents();
     }
-  }, [userLocation]);
+  }, [userLocation, events]);
 
   const gotoEventProfile = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     router.push(`/party/${id}`);
   };
 
+  // Carousel controls
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? events.length - 1 : prevIndex - 1
     );
   };
 
+  // Swipeable handlers
   const handlers = useSwipeable({
     onSwipedLeft: () => nextSlide(),
     onSwipedRight: () => prevSlide(),
+    swipeDuration: 500,
     // preventDefaultTouchmoveEvent: true,
-    swipeDuration:100,
-    delta:0,
-    preventScrollOnSwipe: true,
     trackMouse: true,
   });
 
-  const handleMouseDown = (event:any) => {
+  // Mouse/touch drag controls
+  const handleMouseDown = (event: React.MouseEvent | React.TouchEvent) => {
     setDragging(true);
-    setDragStartX(event.clientX || event.touches[0].clientX);
+    const clientX =
+      "touches" in event ? event.touches[0].clientX : event.clientX;
+    setDragStartX(clientX);
   };
 
-  const handleMouseMove = (event:any) => {
+  const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
     if (!dragging) return;
-    const currentX = event.clientX || event.touches[0].clientX;
+    const currentX =
+      "touches" in event ? event.touches[0].clientX : event.clientX;
     setDragOffset(currentX - dragStartX);
   };
 
@@ -150,206 +140,125 @@ const Carousel = ({
   };
 
   return (
-    // <div
-    //   className="relative w-full max-w-4xl mx-auto"
-    //   {...handlers}
-    //   ref={containerRef}
-    //   onMouseDown={handleMouseDown}
-    //   onTouchStart={handleMouseDown}
-    //   onMouseMove={handleMouseMove}
-    //   onTouchMove={handleMouseMove}
-    //   onMouseUp={handleMouseUp}
-    //   onTouchEnd={handleMouseUp}
-    //   onMouseLeave={() => setDragging(false)}
-    // >
-    //   <div className="overflow-hidden relative">
-    //     <div
-    //       className="flex transition-transform duration-500 ease-in-out"
-    //       style={{
-    //         transform: `translateX(calc(-${
-    //           currentIndex * 80
-    //         }% + ${dragOffset}px))`,
-    //       }}
-    //     >
-    //       {/* {images.map((image, index) => ( */}
-    //       {events?.map((event: any, index: any) => (
-    //         <div
-    //           key={index}
-    //           className={`relative flex-shrink-0 w-4/5 md:w-2/3 h-64 mx-2 transform transition-transform duration-500 ease-in-out ${
-    //             index === currentIndex
-    //               ? "scale-105 bg-blue-200 z-10"
-    //               : "scale-90 bg-gray-200"
-    //           }`}
-    //           style={{
-    //             marginLeft: index === 0 ? "10%" : "0",
-    //             marginRight: index === events.length - 1 ? "10%" : "0",
-    //           }}
-    //         >
-    //           <img
-    //             onClick={(e) => gotoEventProfile(e, event?._id)}
-    //             src={event?.eventFlyer?.secure_url}
-    //             alt={`Slide ${index}`}
-    //             className="w-full h-full object-cover object-top"
-    //           />
-    //           <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
-    //             <div className="text-xl font-bold text-white">
-    //               {getDayFromDate(event?.eventDate)}
-    //             </div>
-    //             <div>{convertToMonth(event?.eventDate)}</div>
-    //           </div>
-    //           <h2 className="font-bold text-3xl">{event.eventTitle}</h2>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    //   <button
-    //     onClick={prevSlide}
-    //     className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-    //   >
-    //     ‹
-    //   </button>
-    //   <button
-    //     onClick={nextSlide}
-    //     className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-    //   >
-    //     ›
-    //   </button>
-    // </div>
-    // <div
-    //   className="relative w-full max-w-4xl mx-auto"
-    //   {...handlers}
-    //   ref={containerRef}
-    //   onMouseDown={handleMouseDown}
-    //   onTouchStart={handleMouseDown}
-    //   onMouseMove={handleMouseMove}
-    //   onTouchMove={handleMouseMove}
-    //   onMouseUp={handleMouseUp}
-    //   onTouchEnd={handleMouseUp}
-    //   onMouseLeave={() => setDragging(false)}
-    // >
-    //   <div className="overflow-hidden relative">
-    //     <div
-    //       className="flex transition-transform duration-500 ease-in-out"
-    //       style={{
-    //         transform: `translateX(calc(-${
-    //           currentIndex * 80
-    //         }% + ${dragOffset}px))`,
-    //       }}
-    //     >
-    //       {events?.map((event: any, index: any) => (
-    //         <div
-    //           key={index}
-    //           className={`relative flex-shrink-0 w-4/5 md:w-2/3 h-64 mx-2 transform transition-transform duration-500 ease-in-out ${
-    //             index === currentIndex
-    //               ? "scale-105 bg-blue-200 z-10"
-    //               : "scale-90 bg-gray-200"
-    //           }`}
-    //           style={{
-    //             marginLeft: index === 0 ? "10%" : "0",
-    //             marginRight: index === events.length - 1 ? "10%" : "0",
-    //           }}
-    //         >
-    //           <img
-    //             onClick={(e) => gotoEventProfile(e, event?._id)}
-    //             src={event?.eventFlyer?.secure_url}
-    //             alt={`Slide ${index}`}
-    //             className="w-full h-full object-cover object-top"
-    //           />
-    //           <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-2 text-center">
-    //             <h2 className="font-bold text-xl">{event.eventTitle}</h2>
-    //           </div>
-    //           <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
-    //             <div className="text-xl font-bold text-white">
-    //               {getDayFromDate(event?.eventDate)}
-    //             </div>
-    //             <div>{convertToMonth(event?.eventDate)}</div>
-    //           </div>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    //   <button
-    //     onClick={prevSlide}
-    //     className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-    //   >
-    //     ‹
-    //   </button>
-    //   <button
-    //     onClick={nextSlide}
-    //     className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-    //   >
-    //     ›
-    //   </button>
-    // </div>
-    <div
-      className="relative w-full max-w-4xl mx-auto "
-      {...handlers}
-      ref={containerRef}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onTouchEnd={handleMouseUp}
-      onMouseLeave={() => setDragging(false)}
-    >
-      <div className="overflow-hidden relative py-5 ">
+    <div className="relative w-full max-w-6xl mx-auto px-4 py-12 bg-gradient-to-br from-yellow-100 to-yellow-100 rounded-3xl shadow-xl">
+      <h2 className="text-4xl font-bold text-center mb-8 text-yellow-900">
+        Upcoming Events
+      </h2>
+      <div
+        className="relative overflow-hidden"
+        {...handlers}
+        ref={containerRef}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onTouchMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onTouchEnd={handleMouseUp}
+        onMouseLeave={() => setDragging(false)}
+      >
         <div
-          className="flex transition-transform duration-500 ease-in-out  "
+          className="flex transition-all duration-500 ease-out"
           style={{
             transform: `translateX(calc(-${
-              currentIndex * 80
+              currentIndex * 100
             }% + ${dragOffset}px))`,
           }}
         >
-          {events?.map((event: any, index: any) => (
+          {events?.map((event, index) => (
             <div
               key={index}
-              className={`rounded-lg relative flex-shrink-0 w-4/5 md:w-2/3 mx-2 transform transition-transform duration-500 ease-in-out ${
+              className={`relative flex-shrink-0 w-full p-4 transition-all duration-500 ${
                 index === currentIndex
-                  ? "scale-105 bg-white z-10 shadow-md  shadow-[rgba(34,34,34,0.1)]"
-                  : "scale-90 bg-white"
+                  ? "scale-100 opacity-100 z-10"
+                  : "scale-95 opacity-50"
               }`}
-              style={{
-                marginLeft: index === 0 ? "10%" : "0",
-                marginRight: index === events.length - 1 ? "10%" : "0",
-              }}
             >
-              <img
-                onClick={(e) => gotoEventProfile(e, event?._id)}
-                src={event?.eventFlyer?.secure_url}
-                alt={`Slide ${index}`}
-                className="w-full h-64 object-cover object-top rounded-t-lg"
-              />
-              <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-sm text-white px-4 py-1 flex flex-col items-center justify-center rounded-lg">
-                <div className=" font-bold text-white">
-                  {getDayFromDate(event?.eventDate)}
+              <div className="bg-white rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-105">
+                <div className="relative h-80">
+                  <img
+                    src={event?.eventFlyer?.secure_url || "/placeholder.png"} // Fallback for missing images
+                    alt={event.eventTitle}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 left-4 bg-white bg-opacity-90 rounded-lg p-2 shadow-md">
+                    <div className="text-3xl font-bold text-yellow-600">
+                      {getDayFromDate(event?.eventDate)}
+                    </div>
+                    <div className="text-sm font-medium text-gray-600">
+                      {convertToMonth(event?.eventDate)}
+                    </div>
+                  </div>
                 </div>
-                <div>{convertToMonth(event?.eventDate)}</div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                    {event.eventTitle}
+                  </h3>
+                  <div className="flex items-center text-gray-600 mb-2">
+                    <FaCalendarAlt className="mr-2" />
+                    <span>
+                      {new Date(event?.eventDate).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-600 mb-2">
+                    <FaClock className="mr-2" />
+                    <span>{convertToTime(event?.eventTime)}</span>
+                  </div>
+                  <div className="flex items-center text-gray-600 mb-4">
+                    <IoLocationSharp className="mr-2" />
+                    <span>{event?.eventLocation}</span>
+                  </div>
+                  <button
+                    onClick={(e) => gotoEventProfile(e, event?._id)}
+                    className="w-full bg-yellow-600 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-300 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
-              {index === currentIndex ? (
-                <h2 className="text-center mt-2 font-bold text-xl mb-4">
-                  {event.eventTitle}
-                </h2>
-              ) : (
-                <div className="hidden"></div>
-              )}
             </div>
           ))}
         </div>
       </div>
-      {/* <button
+
+      <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white text-yellow-600 p-3 rounded-full shadow-lg transition-all duration-300 hover:bg-yellow-600 hover:text-white focus:outline-none"
       >
-        ‹
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
       </button>
+
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white text-yellow-600 p-3 rounded-full shadow-lg transition-all duration-300 hover:bg-yellow-600 hover:text-white focus:outline-none"
       >
-        ›
-      </button> */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

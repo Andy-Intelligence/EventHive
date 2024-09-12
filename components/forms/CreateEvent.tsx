@@ -83,11 +83,14 @@ const CreateEvent = ({ user }: UserProp) => {
     };
     console.log(updatedFormData);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event`, {
-        method: "POST",
-        body: JSON.stringify(updatedFormData),
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/event`,
+        {
+          method: "POST",
+          body: JSON.stringify(updatedFormData),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!res.ok) {
         console.log(res);
@@ -163,7 +166,7 @@ const CreateEvent = ({ user }: UserProp) => {
             value={formData.eventDate}
           />
         </div>
-{/* 
+        {/* 
         <div>
           <label
             htmlFor="eventDetails"
@@ -334,7 +337,7 @@ const CreateEvent = ({ user }: UserProp) => {
             value={formData.eventFee}
           />
         </div>
-{/* 
+        {/* 
         <div>
           <label
             htmlFor="eventGenderRequirement"
