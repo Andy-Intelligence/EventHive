@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { PaystackButton } from "react-paystack";
 import { useSession } from "next-auth/react";
@@ -223,96 +224,210 @@ export default function Pay({
   };
 
   return (
-    <main className="flex flex-col items-center justify-evenly w-full gap-8 p-10">
-      <header className="text-center">
-        <h1 className="text-4xl font-extrabold">Get Tickets</h1>
-      </header>
-      <section className="w-full flex flex-col items-center text-wrap break-words">
+    // <main className="flex flex-col items-center justify-evenly w-full gap-8 p-10">
+    //   <header className="text-center">
+    //     <h1 className="text-4xl font-extrabold">Get Tickets</h1>
+    //   </header>
+    //   <section className="w-full flex flex-col items-center text-wrap break-words">
+    //     <article className="flex flex-col w-full items-center text-wrap">
+    //       <h2 className="text-2xl font-extrabold my-4">{event?.eventTitle}</h2>
+    //       <div className="flex flex-col w-full items-start">
+    //         <p className="bold">
+    //           <strong>Ticket</strong>
+    //         </p>
+    //         <div className="flex items-center justify-start gap-4">
+    //           <div>
+    //             <p>
+    //               <small>Entry Fee</small>
+    //             </p>
+    //             <p className="font-bold">{formatAmount(event?.eventFee)}</p>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </article>
+    //   </section>
+    //   <form className="flex flex-col w-full gap-4">
+    //     <div className="flex flex-col items-start">
+    //       <label htmlFor="name" className="font-bold">
+    //         Name
+    //       </label>
+    //       <input
+    //         className="w-full h-10 text-lg border border-gray-300 rounded p-2"
+    //         type="text"
+    //         id="name"
+    //         name="name"
+    //         required
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <div className="flex flex-col items-start">
+    //       <label htmlFor="phone" className="font-bold">
+    //         Phone
+    //       </label>
+    //       <input
+    //         className="w-full h-10 text-lg border border-gray-300 rounded p-2"
+    //         type="text"
+    //         id="phone"
+    //         name="phone"
+    //         required
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <div className="flex flex-col items-start">
+    //       <label htmlFor="email" className="font-bold">
+    //         Email
+    //       </label>
+    //       <input
+    //         className="w-full h-10 text-lg border border-gray-300 rounded p-2"
+    //         type="email"
+    //         id="email"
+    //         name="email"
+    //         required
+    //         onChange={handleChange}
+    //       />
+    //       <p className="text-sm text-gray-600">
+    //         We will email your ticket to this address
+    //       </p>
+    //     </div>
+    //     <div className="flex flex-col items-start">
+    //       <label htmlFor="ticketType" className="font-bold">
+    //         Ticket Type
+    //       </label>
+    //       <select
+    //         className="w-full h-10 text-lg border border-gray-300 rounded p-2"
+    //         id="ticketType"
+    //         name="ticketType"
+    //         onChange={handleChange}
+    //       >
+    //         <option value="entry">Entry</option>
+    //         <option value="couples">Couples</option>
+    //       </select>
+    //     </div>
+    //   </form>
+    //   <div className="w-full flex flex-col items-center text-center">
+    //     <p className="font-bold">Buy Multiple Tickets</p>
+    //     <p className="text-sm text-gray-600">
+    //       We will email their tickets to the addresses you provide below
+    //     </p>
+    //   </div>
+    //   <PaystackButton
+    //     className="bg-black text-white font-bold py-2 px-6 rounded-full"
+    //     {...componentProps}
+    //   />
+    // </main>
+    <main className="flex flex-col items-center justify-evenly w-full gap-8 p-10 bg-yellow-50 min-h-screen">
+      <motion.header
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center"
+      >
+        <h1 className="text-4xl font-extrabold text-yellow-800">Get Tickets</h1>
+      </motion.header>
+
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8"
+      >
         <article className="flex flex-col w-full items-center text-wrap">
-          <h2 className="text-2xl font-extrabold my-4">{event?.eventTitle}</h2>
-          <div className="flex flex-col w-full items-start">
-            <p className="bold">
-              <strong>Ticket</strong>
-            </p>
+          <h2 className="text-2xl font-extrabold my-4 text-yellow-700">
+            {event?.eventTitle}
+          </h2>
+          <div className="flex flex-col w-full items-start bg-yellow-100 p-4 rounded-lg">
+            <p className="font-bold text-yellow-800 mb-2">Ticket Details</p>
             <div className="flex items-center justify-start gap-4">
               <div>
-                <p>
-                  <small>Entry Fee</small>
+                <p className="text-sm text-yellow-600">Entry Fee</p>
+                <p className="font-bold text-2xl text-yellow-800">
+                  {formatAmount(event?.eventFee)}
                 </p>
-                <p className="font-bold">{formatAmount(event?.eventFee)}</p>
               </div>
             </div>
           </div>
         </article>
-      </section>
-      <form className="flex flex-col w-full gap-4">
-        <div className="flex flex-col items-start">
-          <label htmlFor="name" className="font-bold">
-            Name
-          </label>
-          <input
-            className="w-full h-10 text-lg border border-gray-300 rounded p-2"
-            type="text"
-            id="name"
-            name="name"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col items-start">
-          <label htmlFor="phone" className="font-bold">
-            Phone
-          </label>
-          <input
-            className="w-full h-10 text-lg border border-gray-300 rounded p-2"
-            type="text"
-            id="phone"
-            name="phone"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col items-start">
-          <label htmlFor="email" className="font-bold">
-            Email
-          </label>
-          <input
-            className="w-full h-10 text-lg border border-gray-300 rounded p-2"
-            type="email"
-            id="email"
-            name="email"
-            required
-            onChange={handleChange}
-          />
-          <p className="text-sm text-gray-600">
-            We will email your ticket to this address
+
+        <form className="flex flex-col w-full gap-6 mt-8">
+          <div className="flex flex-col items-start">
+            <label htmlFor="name" className="font-bold text-yellow-800 mb-1">
+              Name
+            </label>
+            <input
+              className="w-full h-12 text-lg border-2 border-yellow-300 rounded-lg p-2 focus:outline-none focus:border-yellow-500 transition duration-300"
+              type="text"
+              id="name"
+              name="name"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col items-start">
+            <label htmlFor="phone" className="font-bold text-yellow-800 mb-1">
+              Phone
+            </label>
+            <input
+              className="w-full h-12 text-lg border-2 border-yellow-300 rounded-lg p-2 focus:outline-none focus:border-yellow-500 transition duration-300"
+              type="text"
+              id="phone"
+              name="phone"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col items-start">
+            <label htmlFor="email" className="font-bold text-yellow-800 mb-1">
+              Email
+            </label>
+            <input
+              className="w-full h-12 text-lg border-2 border-yellow-300 rounded-lg p-2 focus:outline-none focus:border-yellow-500 transition duration-300"
+              type="email"
+              id="email"
+              name="email"
+              required
+              onChange={handleChange}
+            />
+            <p className="text-sm text-yellow-600 mt-1">
+              We will email your ticket to this address
+            </p>
+          </div>
+          <div className="flex flex-col items-start">
+            <label
+              htmlFor="ticketType"
+              className="font-bold text-yellow-800 mb-1"
+            >
+              Ticket Type
+            </label>
+            <select
+              className="w-full h-12 text-lg border-2 border-yellow-300 rounded-lg p-2 focus:outline-none focus:border-yellow-500 transition duration-300"
+              id="ticketType"
+              name="ticketType"
+              onChange={handleChange}
+            >
+              <option value="entry">Entry</option>
+              <option value="couples">Couples</option>
+            </select>
+          </div>
+        </form>
+
+        <div className="w-full flex flex-col items-center text-center mt-8">
+          <p className="font-bold text-yellow-800">Buy Multiple Tickets</p>
+          <p className="text-sm text-yellow-600">
+            We will email their tickets to the addresses you provide below
           </p>
         </div>
-        <div className="flex flex-col items-start">
-          <label htmlFor="ticketType" className="font-bold">
-            Ticket Type
-          </label>
-          <select
-            className="w-full h-10 text-lg border border-gray-300 rounded p-2"
-            id="ticketType"
-            name="ticketType"
-            onChange={handleChange}
-          >
-            <option value="entry">Entry</option>
-            <option value="couples">Couples</option>
-          </select>
-        </div>
-      </form>
-      <div className="w-full flex flex-col items-center text-center">
-        <p className="font-bold">Buy Multiple Tickets</p>
-        <p className="text-sm text-gray-600">
-          We will email their tickets to the addresses you provide below
-        </p>
-      </div>
-      <PaystackButton
-        className="bg-black text-white font-bold py-2 px-6 rounded-full"
-        {...componentProps}
-      />
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-8"
+        >
+          <PaystackButton
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md"
+            {...componentProps}
+          />
+        </motion.div>
+      </motion.section>
     </main>
   );
 }

@@ -201,7 +201,7 @@ const Carousel: React.FC<CarouselProps> = ({ events }) => {
                   </div>
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaClock className="mr-2" />
-                    <span>{convertToTime(event?.eventTime)}</span>
+                    <span>{convertToTime(event?.eventDate)}</span>
                   </div>
                   <div className="flex items-center text-gray-600 mb-4">
                     <IoLocationSharp className="mr-2" />

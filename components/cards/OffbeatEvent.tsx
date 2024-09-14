@@ -1,44 +1,56 @@
-import Image from "next/image"
-import newsImage from '../../../public/assets/newsImage.jpg'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+"use client"
+import React from "react";
+import Image from "next/image";
+import { Calendar, MapPin } from "lucide-react";
 
-interface OffbeatEventProps{
-    img:string;
-    eventTitle:string;
-    eventDate:string;
-    eventLocation:string;
-    eventDescription:string;
+interface OffbeatEventProps {
+  img: string;
+  eventTitle: string;
+  eventDate: string;
+  eventLocation: string;
+  eventDescription: string;
 }
 
-
-function OffbeatEvent({img,eventTitle,eventDate,eventLocation,eventDescription}:OffbeatEventProps) {
+export default function OffbeatEvent({
+  img,
+  eventTitle,
+  eventDate,
+  eventLocation,
+  eventDescription,
+}: OffbeatEventProps) {
   return (
-    <div className="focusNews h-auto w-[90dvw]  md:w-[580px] flex flex-col shadow-md  shadow-[rgba(34,34,34,0.1)] p-4 space-y-3 transition bg-white rounded-lg">
-      <Image
-        className="h-auto w-full"
-        src={img}
-        height={960}
-        width={600}
-        alt="news image"
-      />
-      <div className="flex align-middle justify-start items-center space-x-2  text-[13px]  text-center text-black">
-        <div className=" text-priceTagOrange">
-          <CalendarMonthIcon className="calendar" />
+    <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 max-w-2xl mx-auto">
+      <div className="relative">
+        <Image
+          className="w-full h-64 object-cover"
+          src={img}
+          height={960}
+          width={600}
+          alt={eventTitle}
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-yellow-800 to-transparent p-4">
+          <h3 className="text-2xl font-bold text-white">{eventTitle}</h3>
         </div>
-        <div>{eventDate}</div>
       </div>
-
-      <h3 className="text-buttonPurple font-bold text-lg">{eventTitle}</h3>
-      <p className="whitespace-normal text-left break-all">
-        {eventDescription.split(" ").slice(0, 20).join(" ")}{" "}
-        {/* Display only the first 15 words */}
-        {eventDescription.split(" ").length > 20 && "..."}{" "}
-        {/* Add ellipsis if text is longer than 15 words */}
-      </p>
-
-      {/* <div className="bg-buttonPurple h-8 w-24 text-sm text-black text-center flex justify-center items-center">Read More</div> */}
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center text-yellow-700">
+            <Calendar className="w-5 h-5 mr-2" />
+            <span className="text-sm font-medium">{eventDate}</span>
+          </div>
+          <div className="flex items-center text-yellow-700">
+            <MapPin className="w-5 h-5 mr-2" />
+            <span className="text-sm font-medium">{eventLocation}</span>
+          </div>
+        </div>
+        <p className="text-gray-700 mb-4">
+          {eventDescription.split(" ").slice(0, 20).join(" ")}
+          {eventDescription.split(" ").length > 20 && "..."}
+        </p>
+        <button className="bg-yellow-500 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-yellow-600 transition-colors duration-300 shadow-md hover:shadow-lg">
+          Read More
+        </button>
+      </div>
     </div>
   );
 }
-
-export default OffbeatEvent

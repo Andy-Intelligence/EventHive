@@ -1,52 +1,54 @@
 "use client"
-import React from 'react'
-import Image from "next/image"
-// import newsImage from '../../../public/assets/unFocusNews.jpg'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { IoLocationSharp } from 'react-icons/io5';
+import React from "react";
+import Image from "next/image";
+import { CalendarIcon, LocateIcon } from "lucide-react";
 
-interface TrendingEventProps{
-    img:string;
-    eventTitle:string;
-    eventDate:string;
-    eventLocation:string;
+interface TrendingEventProps {
+  img: string;
+  eventTitle: string;
+  eventDate: string;
+  eventLocation: string;
 }
 
-
-function TrendingEvent({img,eventTitle,eventDate,eventLocation}:TrendingEventProps) {
+export default function TrendingEvent({
+  img,
+  eventTitle,
+  eventDate,
+  eventLocation,
+}: TrendingEventProps) {
   return (
-    <div className="unFocusNews flex items-start justify-between  h-auto w-[90dvw] md:w-[580px] p-4 space-x-2 shadow-md  shadow-[rgba(34,34,34,0.1)] bg-white rounded-lg">
-      <div className="h-auto ">
-        <Image
-          height={60}
-          width={60}
-          src={img}
-          alt={eventTitle}
-          className="h-24 w-24 object-cover rounded-lg mr-4"
-          style={{ minWidth: "100px" }} // Set a minimum width for the image
-        />
-      </div>
-      <div className="flex flex-col h-24 w-full justify-between items-start">
-        <h4 className="text-lg font-bold text-buttonPurple">{eventTitle}</h4>
-
-        <div className="flex align-middle justify-start items-center space-x-2  text-[13px]  text-center text-black">
-          <div className=" text-priceTagOrange">
-            <CalendarMonthIcon className="calendar text-[20px]" />
-          </div>
-          <div>{eventDate}</div>
+    <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 max-w-md">
+      <div className="flex p-4 space-x-4">
+        <div className="flex-shrink-0">
+          <Image
+            height={120}
+            width={120}
+            src={img}
+            alt={eventTitle}
+            className="h-30 w-30 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+          />
         </div>
-
-        <div className="flex items-center justify-center space-x-2">
-          <div className="flex items-center justify-center">
-            <IoLocationSharp size={20} />
+        <div className="flex flex-col justify-between flex-grow">
+          <div>
+            <h4 className="text-xl font-bold text-yellow-800 mb-2 leading-tight">
+              {eventTitle}
+            </h4>
+            <div className="flex items-center text-yellow-700 mb-2">
+              <CalendarIcon className="w-5 h-5 mr-2" />
+              <span className="text-sm">{eventDate}</span>
+            </div>
+            <div className="flex items-start text-yellow-700">
+              <LocateIcon className="w-5 h-5 mr-2 mt-1 flex-shrink-0" />
+              <p className="text-sm leading-snug">{eventLocation}</p>
+            </div>
           </div>
-          <p className="text-sm whitespace-normal text-left break-all w-full truncate ...">
-            {eventLocation}
-          </p>
+          <div className="mt-4">
+            <button className="bg-yellow-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-yellow-600 transition-colors duration-300">
+              Learn More
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-export default TrendingEvent

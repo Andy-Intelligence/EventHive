@@ -1,22 +1,20 @@
-
-"use client";
+"use client"
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import LoadingComponent from "@/components/LoadingComponent";
 import EventCard from "@/components/cards/EventCard";
 import SimilarUpcomingEventCard from "@/components/cards/SimilarUpcomingEventCard";
-import { MapComponent } from "@/components/externalApiViews/Map";
 import Button from "@/components/layoutComponents/Button";
 import CategoryButton from "@/components/layoutComponents/CategoryButton";
-import CountDown from "react-countdown";
+import Countdown, { zeroPad } from "react-countdown";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { IoClose } from "react-icons/io5";
-import Countdown, { zeroPad } from "react-countdown";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
 import {
   Drawer,
   DrawerClose,
@@ -27,8 +25,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
-import Confetti from "react-confetti";
 import {
   convertTimeToCustomFormat,
   convertToMonth,
@@ -39,12 +35,9 @@ import {
   getDayFromDate,
   replaceHttpWithHttps,
 } from "@/utils/helpingFunctions/functions";
-import { MapProvider } from "@/utils/providers/MapProvider";
-import { GoogleMap } from "@react-google-maps/api";
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import {
   BsChat,
@@ -54,10 +47,9 @@ import {
 } from "react-icons/bs";
 import { FiClock } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
-import EventCountDownCompleted from "@/components/EventCountDownCompleted";
-import ConfettiComponent from "@/components/ConfettiComponent";
 import CommentsSection from "@/components/CommentsSection";
 import { FaStar } from "react-icons/fa";
+
 
 const getEvent = async (id: any) => {
   try {
@@ -151,8 +143,7 @@ export default function Page({ params }: { params: { id: string } }) {
     };
 
   
-
-  const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
+  const renderer = ({ days, hours, minutes, seconds, completed }:any) => {
     if (completed) {
       return <div></div>;
     } else {
@@ -166,10 +157,10 @@ export default function Page({ params }: { params: { id: string } }) {
           ].map(({ label, value }) => (
             <div
               key={label}
-              className="flex flex-col items-center p-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-md"
+              className="flex flex-col items-center p-3 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg shadow-md"
             >
               <span className="text-4xl text-white">{zeroPad(value)}</span>
-              <span className="text-xs text-blue-100 mt-1">{label}</span>
+              <span className="text-xs text-yellow-100 mt-1">{label}</span>
             </div>
           ))}
         </div>
@@ -182,21 +173,32 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+  
+    <div className="bg-yellow-50 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Countdown Timer */}
         {!showEventStarted && (
-          <div className="w-full flex justify-center p-6 bg-white rounded-xl shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full flex justify-center p-6 bg-white rounded-xl shadow-lg"
+          >
             <Countdown
               date={new Date(event.eventDate)}
               renderer={renderer}
               onComplete={handleComplete}
             />
-          </div>
+          </motion.div>
         )}
 
         {/* Event Image Section */}
-        <section className="relative">
+        <motion.section
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative"
+        >
           {event.eventFlyer?.secure_url && (
             <CldImage
               key={event._id}
@@ -208,16 +210,21 @@ export default function Page({ params }: { params: { id: string } }) {
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
           )}
-          <div className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-6 py-3 rounded-lg flex flex-col items-center justify-center">
+          <div className="absolute top-4 left-4 bg-yellow-500 bg-opacity-90 text-white px-6 py-3 rounded-lg flex flex-col items-center justify-center">
             <div className="text-3xl font-bold">
               {getDayFromDate(event.eventDate)}
             </div>
             <div className="text-lg">{convertToMonth(event.eventDate)}</div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Event Info Section */}
-        <section className="flex justify-between items-center bg-white p-6 rounded-xl shadow-lg">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-between items-center bg-white p-6 rounded-xl shadow-lg"
+        >
           <div className="flex items-center gap-3">
             <CategoryButton
               text={event.eventCategory}
@@ -225,30 +232,37 @@ export default function Page({ params }: { params: { id: string } }) {
             />
             <CategoryButton text={"5.0"} category={"StarRating"} />
           </div>
-          <div className="text-2xl font-bold text-blue-600">
+          <div className="text-2xl font-bold text-yellow-600">
             <CountUp end={event.eventFee} prefix="₦" />
             <span className="font-normal text-gray-500 text-sm ml-1">
               /Person
             </span>
           </div>
-        </section>
+        </motion.section>
 
         {/* Organizer Info */}
-        <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4"
+        >
           <Image
             src={replaceHttpWithHttps(event.eventHost?.image)}
             alt="Organizer"
-            className="w-16 h-16 rounded-full"
+            className="w-16 h-16 rounded-full border-2 border-yellow-400"
             height={64}
             width={64}
           />
           <div className="flex-grow">
-            <h3 className="font-bold text-xl">{event.eventHost?.username}</h3>
+            <h3 className="font-bold text-xl text-yellow-800">
+              {event.eventHost?.username}
+            </h3>
             <p className="text-gray-600">{event.eventOrganiser}</p>
           </div>
           <div className="flex space-x-3">
             <button
-              className="bg-blue-100 p-3 rounded-full text-blue-600 hover:bg-blue-200 transition duration-300"
+              className="bg-yellow-100 p-3 rounded-full text-yellow-600 hover:bg-yellow-200 transition duration-300"
               onClick={copyPhoneNumber}
             >
               <BsTelephone size={20} />
@@ -258,15 +272,20 @@ export default function Page({ params }: { params: { id: string } }) {
             </button>
           </div>
           {copied && <p className="text-green-500 ml-2">Copied!</p>}
-        </div>
+        </motion.div>
 
         {/* Event Details Section */}
-        <section className="bg-white p-8 rounded-xl shadow-lg space-y-6">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-white p-8 rounded-xl shadow-lg space-y-6"
+        >
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-800">
+            <h1 className="text-3xl font-extrabold text-yellow-800">
               {event.eventTitle}
             </h1>
-            <h3 className="text-xl font-semibold text-gray-600 mt-2">
+            <h3 className="text-xl font-semibold text-yellow-600 mt-2">
               {event.eventTopic}
             </h3>
           </div>
@@ -276,7 +295,7 @@ export default function Page({ params }: { params: { id: string } }) {
               {event.orders
                 .reverse()
                 .slice(0, 3)
-                .map((user: any, index: number) => (
+                .map((user:any, index:number) => (
                   <Image
                     key={index}
                     className={`h-12 w-12 rounded-full border-2 border-white ${
@@ -289,24 +308,24 @@ export default function Page({ params }: { params: { id: string } }) {
                     style={{ zIndex: event.orders.length - index }}
                   />
                 ))}
-              <span className="ml-3 text-lg font-semibold text-gray-700">
+              <span className="ml-3 text-lg font-semibold text-yellow-700">
                 {formatAttendanceNumber(event.orders.length)} Going
               </span>
             </div>
-            <button className="font-bold text-blue-600 hover:text-blue-800 transition duration-300">
+            <button className="font-bold text-yellow-600 hover:text-yellow-800 transition duration-300">
               Invite
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <div className="flex items-center text-gray-700">
+              <div className="flex items-center text-yellow-700">
                 <FiClock className="mr-2" size={20} />
                 <span>
                   {convertTimeToCustomFormat(event.eventDate)} {event.eventTime}
                 </span>
               </div>
-              <div className="flex items-center text-gray-700">
+              <div className="flex items-center text-yellow-700">
                 <IoLocationOutline className="mr-2" size={20} />
                 <span>{event.eventLocation}</span>
               </div>
@@ -327,7 +346,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <h3 className="text-xl font-bold text-yellow-800 mb-2">
               Description & Tips
             </h3>
             <p className="text-gray-600 leading-relaxed">
@@ -338,11 +357,11 @@ export default function Page({ params }: { params: { id: string } }) {
           <Accordion
             type="single"
             collapsible
-            className="bg-gray-50 rounded-lg shadow"
+            className="bg-yellow-50 rounded-lg shadow"
           >
             <AccordionItem value="item-1">
-              <AccordionTrigger className="px-4 py-3 hover:bg-gray-100">
-                <h3 className="text-lg font-bold text-gray-800">
+              <AccordionTrigger className="px-4 py-3 hover:bg-yellow-100">
+                <h3 className="text-lg font-bold text-yellow-800">
                   Event Details
                 </h3>
               </AccordionTrigger>
@@ -359,7 +378,7 @@ export default function Page({ params }: { params: { id: string } }) {
                       <span className="font-semibold mr-2">Website:</span>
                       <a
                         href={event.eventWebsite}
-                        className="text-blue-500 hover:underline"
+                        className="text-yellow-500 hover:underline"
                       >
                         {event.eventWebsite}
                       </a>
@@ -372,12 +391,12 @@ export default function Page({ params }: { params: { id: string } }) {
           </Accordion>
 
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
+            <h3 className="text-xl font-bold text-yellow-800 mb-4">
               Comments & Reviews (33)
             </h3>
             <Drawer>
               <DrawerTrigger>
-                <div className="p-4 rounded-lg flex items-center w-full bg-white border border-gray-200 shadow-md hover:shadow-lg transition duration-300">
+                <div className="p-4 rounded-lg flex items-center w-full bg-white border border-yellow-200 shadow-md hover:shadow-lg transition duration-300">
                   <Image
                     src={replaceHttpWithHttps(event.eventHost?.image)}
                     alt="Organizer"
@@ -405,7 +424,7 @@ export default function Page({ params }: { params: { id: string } }) {
               </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader>
-                  <DrawerTitle className="text-2xl font-bold">
+                  <DrawerTitle className="text-2xl font-bold text-yellow-800">
                     Comments and Reviews
                   </DrawerTitle>
                   <DrawerDescription>
@@ -415,7 +434,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <CommentsSection />
                 <DrawerFooter>
                   <DrawerClose asChild>
-                    <button className="flex items-center justify-center bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition duration-300">
+                    <button className="flex items-center justify-center bg-yellow-200 p-3 rounded-full hover:bg-yellow-300 transition duration-300">
                       <IoClose size={24} />
                     </button>
                   </DrawerClose>
@@ -423,7 +442,7 @@ export default function Page({ params }: { params: { id: string } }) {
               </DrawerContent>
             </Drawer>
           </div>
-        </section>
+        </motion.section>
 
         {/* Ticket Purchase Section */}
         <section className="text-center space-y-4">
